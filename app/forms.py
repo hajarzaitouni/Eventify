@@ -1,0 +1,45 @@
+from flask import render_template, request, redirect
+from app import app , db
+from app.models import User, Event
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import DataRequired, ValidationError
+
+class LoginForm(FlaskForm):
+    """ Login form. """
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField("Remember Me")
+    submit = SubmitField('Sign In')
+
+class RegisterForm(FlaskForm):
+    """ Registration form. """
+    username = StringField('Username', validators=[DataRequired()])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Register')
+
+    def validate_username(self, username):
+        """ Validate username. """
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different username.')
+        
+    def validate_email(self, email):
+        """ Validate email. """
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
+        
+
+class EventForm(FlaskForm):
+    """ Event form. """
+    event_name = StringField('Event Name', validators=[DataRequired()])
+    event_description = StringField('Event Description', validators=[DataRequired()])
+    thumbnail = StringField('Thumbnail', validators=[DataRequired()])
+    event_date = StringField('Event Date', validators=[DataRequired()])
+    event_end = StringField('Event End', validators=[DataRequired()])
+    event_location = StringField('Event Location', validators=[DataRequired()])
+    submit = SubmitField('Create Event')
