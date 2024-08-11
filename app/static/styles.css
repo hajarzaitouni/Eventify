@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* welcome title section*/
+.welcome-title {
+    background-image: url("../static/images/home.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 800px;
+    color: whitesmoke;
+    text-align: center;
+    
+    padding-bottom: 100px;
+    position: relative;
+}
+
+.navbar {
+    background: #bc32007d;
+}
+
+.navbar #navbarNav a.nav-link {
+    justify-content: flex-end;
+    font-size: 1.3rem;
+    color: #ffffff;
+    padding: 10px 20px;
+}
+
+.welcome-content {
+    display: flex;
+    padding-top: 240px;
+    margin-right: 250px;
+}
+
+.welcome-content h1 {
+    color: whitesmoke;
+    font-size: 5.5rem;
+    font-weight: 600;
+}
+
+.welcome-content p {
+    color: whitesmoke;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.welcome-content a.btn.btn-primary.btn-lg {
+    background-color: #8b101c9e;
+    color: whitesmoke;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border-color: #8b101c9e;
+    margin-top: 20px;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.welcome-content a.btn.btn-primary.btn-lg:hover {
+    background-color: #8b101c;
+    border-color: #8b101c;
+}
+
+/* footer section style */

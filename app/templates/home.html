@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/styles.css">
     <title>Eventify</title>
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <section class="welcome-title">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="#">
-                <img src="../static/images/logo.png" alt="logo_Eventify" width="100" height="65"
-                    loading="lazy">
+                <img src="../static/images/logo.png" alt="logo_Eventify" width="100" height="65" loading="lazy">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,19 +28,71 @@
                         <a class="nav-link" href="#">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">sign in</a>
+                        <a class="nav-link" href="#">Sign In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled">Sign up</a>
+                        <a class="nav-link">Sign Up</a>
                     </li>
                 </ul>
             </div>
         </nav>
-    </header>
-    <h1>Hello World</h1>
-    <footer>
-        <p>&copy; 2020 Eventify</p>
+        <div class="container welcome-content">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <h1>Welcome to Eventify</h1>
+                    <p class="text-center">Your Event Journey Start Here</p>
+                    <a href="#" class="btn btn-primary btn-lg">Create Yours Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="events-section">
+            <div class="container">
+                <h2 class="text-center">Upcoming Events</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                            <div class="card-body">
+                                <h5 class="card-title">Event Name 1</h5>
+                                <p class="card-text">Description of the event.</p>
+                                <a href="#" class="btn btn-primary">More Information</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                            <div class="card-body">
+                                <h5 class="card-title">Event Name 2</h5>
+                                <p class="card-text">Description of the event.</p>
+                                <a href="#" class="btn btn-primary">More Information</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                            <div class="card-body">
+                                <h5 class="card-title">Event Name 3</h5>
+                                <p class="card-text">Description of the event.</p>
+                                <a href="#" class="btn btn-primary">More Information</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section text-center">
+        <div class="container">
+            <p>&copy; 2024 Eventify. All rights reserved</p>
+        </div>
     </footer>
+
     <!-- Bootstrap JS -->
     <script src="../static/js/bootstrap.bundle.min.js"></script>
 </body>
