@@ -26,18 +26,18 @@ def login():
 def register():
     """ Register route. """
     form = RegisterForm()
-    if form.validate_on_submit():
+    if  form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         try:
             db.session.add(user)
             db.session.commit()
-            flash('Congratulations, you are now a registered user!')
+            print('Congratulations, you are now a registered user!')
         except Exception as e:
-            flash("Error adding user to the database")
+            print("Error adding user to the database")
             db.session.rollback()
             return render_template('register.html', title='Register', form=form, error="Registration failed.")
         return redirect(url_for('login'))
     else:
-        flash("Form validation failed.")
+        print("Form validation failed.")
     return render_template('register.html', title='Register', form=form)

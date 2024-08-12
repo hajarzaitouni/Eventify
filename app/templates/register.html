@@ -14,7 +14,8 @@
       <input type="password" name="password" id="password" required />
       <button type="submit">Register</button> -->
       {{ form.hidden_tag() }} {{ form.email.label }} {{ form.email() }} {{
-      form.password.label }} {{ form.password() }} {{ form.submit() }}
+      form.username.label }} {{ form.username() }} {{form.password.label }} {{
+      form.password() }} {{ form.submit() }}
     </form>
     <a href="/login">Login</a>
   </body>
