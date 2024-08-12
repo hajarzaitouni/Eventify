@@ -9,35 +9,66 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 800px;
-    color: whitesmoke;
+    height: 820px;
+    color: white;
     text-align: center;
-    
-    padding-bottom: 100px;
     position: relative;
 }
 
 .navbar {
-    background: #bc32007d;
+    background: transparent;
 }
 
 .navbar #navbarNav a.nav-link {
     justify-content: flex-end;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #ffffff;
-    padding: 10px 20px;
+    padding: 5px 20px;
+}
+
+li.nav-item button {
+    color: #ffffff;
+    border-color: #ffffff;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 5px 20px;
+    border-radius: 40px;
+    margin-right: 20px;
+    transition: color 0.5s ease, border-color 0.5s ease, background-color 0.5s ease;
+}
+
+li.nav-item button:hover {
+    background-color: #ffffff75;
+}
+
+li.nav-item button.btn-priamary {
+    background-color: white;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 5px 20px;
+    border-radius: 40px;
+    border-color: white;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+li.nav-item button.btn-priamary:hover {
+    background-color: #cd8887;
+    color: white;
+    border-color: #cd8887;
 }
 
 .welcome-content {
-    display: flex;
-    padding-top: 240px;
-    margin-right: 250px;
+    padding-top: 280px;
 }
 
 .welcome-content h1 {
     color: whitesmoke;
-    font-size: 5.5rem;
+    font-size: 5.4rem;
+    text-shadow: 0 0 5px black;
     font-weight: 600;
+    line-height: 5.5rem;
 }
 
 .welcome-content p {
@@ -47,20 +78,21 @@ body {
 }
 
 .welcome-content a.btn.btn-primary.btn-lg {
-    background-color: #8b101c9e;
-    color: whitesmoke;
+    background-color: #d8cbcb;
+    color: #3f3232;
     font-size: 1.5rem;
     font-weight: 400;
     padding: 10px 20px;
     border-radius: 10px;
-    border-color: #8b101c9e;
+    border-color: #d8cbcb;
     margin-top: 20px;
     transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 .welcome-content a.btn.btn-primary.btn-lg:hover {
-    background-color: #8b101c;
-    border-color: #8b101c;
+    background-color: #cd8887;
+    color: black;
+    border-color: #cd8887;
 }
 
 /* footer section style */

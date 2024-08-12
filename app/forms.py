@@ -1,15 +1,14 @@
-from flask import render_template, request, redirect
-from app import app , db
-from app.models import User, Event
+from app.models import User
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, Email, ValidationError, Length
+
 
 class LoginForm(FlaskForm):
     """ Login form. """
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField("Remember Me")
+    remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
 class RegisterForm(FlaskForm):
@@ -25,7 +24,7 @@ class RegisterForm(FlaskForm):
         """ Validate username. """
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Please use a different username.')
+            raise ValidationError('Please choose a different username.')
         
     def validate_email(self, email):
         """ Validate email. """
