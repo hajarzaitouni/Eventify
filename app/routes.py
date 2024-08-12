@@ -38,6 +38,4 @@ def register():
             db.session.rollback()
             return render_template('register.html', title='Register', form=form, error="Registration failed.")
         return redirect(url_for('login'))
-    else:
-        flash("Form validation failed.")
     return render_template('register.html', title='Register', form=form)
