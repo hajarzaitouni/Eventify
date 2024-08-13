@@ -8,7 +8,8 @@ from app.forms import LoginForm, RegisterForm, EventForm
 @app.route('/home')
 def home():
     """ Home page route. """
-    return render_template('home.html')
+    form = LoginForm()
+    return render_template('home.html', form=form)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -18,12 +19,13 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Invalid username or password', 'danger')
+            print('Flash message set')
             return redirect(url_for('login'))
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        return redirect(url_for('home'))
-    return render_template('login.html', form=form)
+        flash('Login successful', 'success')
+        print('Redirecting to event_dashboard')
+        return redirect(url_for('event_dashboard'))
+    return render_template('login.html', title='Sign In', form=form)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -45,3 +47,8 @@ def register():
             return render_template('register.html', title='Register', form=form, error="Registration failed.")
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route("/event", methods=['GET', 'POST'])
+def event_dashboard():
+    """ Event dashboard route. """
+    return render_template('event_dashbord.html')
