@@ -1,6 +1,6 @@
 from app.models import User
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateField
 from wtforms.validators import DataRequired, Email, ValidationError, Length
 
 
@@ -38,7 +38,7 @@ class EventForm(FlaskForm):
     event_name = StringField('Event Name', validators=[DataRequired()])
     event_description = StringField('Event Description', validators=[DataRequired()])
     thumbnail = StringField('Thumbnail', validators=[DataRequired()])
-    event_date = StringField('Event Date', validators=[DataRequired()])
-    event_end = StringField('Event End', validators=[DataRequired()])
+    event_date = DateField('Event Date', format='%d-%m-%Y', validators=[DataRequired()])
+    event_end = DateField('Event End', format='%d-%m-%Y', validators=[DataRequired()])
     event_location = StringField('Event Location', validators=[DataRequired()])
     submit = SubmitField('Create Event')

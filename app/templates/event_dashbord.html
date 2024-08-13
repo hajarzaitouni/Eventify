@@ -1,1 +1,20 @@
 <h1>Welcome to event dashbord</h1>
+<body>
+    <h1>Create Event</h1>
+    <form action="/event/create" method="post">
+        {{ form.hidden_tag() }} 
+        {{ form.event_name.label }} {{ form.event_name() }} {% for error in form.event_name.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %} {{ form.event_date.label }} {{ form.event_date() }} {% for error in form.event_date.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %} {{ form.event_end.label }} {{ form.event_end() }} {% for error in form.event_end.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %} {{ form.event_location.label }} {{ form.event_location() }} {% for error in form.event_location.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %} {{ form.event_description.label }} {{ form.event_description() }} {% for error in form.event_description.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %} {{ form.thumbnail.label }} {{ form.thumbnail() }}  {% for error in form.thumbnail.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %} {{ form.submit() }}
+    </form>
+</body>

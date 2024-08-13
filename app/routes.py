@@ -51,4 +51,66 @@ def register():
 @app.route("/event", methods=['GET', 'POST'])
 def event_dashboard():
     """ Event dashboard route. """
-    return render_template('event_dashbord.html')
+    form = EventForm()
+    return render_template('event_dashbord.html', form=form)
+
+@app.route("/event/create", methods=['GET', 'POST'])
+def create_event():
+    """ Event route. """
+    form = EventForm()
+    if form.validate_on_submit():
+        event = Event(event_name=form.event_name.data,
+                      event_description=form.event_description.data,
+                      event_location=form.event_location.data,
+                      event_date=form.event_date.data,
+                      event_end=form.event_end.data,)
+        try:
+            db.session.add(event)
+            db.session.commit()
+            print('Congratulations, you have created an event!')
+        except Exception as e:
+            print("Error adding event to the database")
+            db.session.rollback()
+            return render_template('event.html', title='Event', form=form, error="Event creation failed.")
+        return render_template('event_dashbord.html', title='Event', form=form)
+    else:
+        print(form.errors)
+    return render_template('event_dashbord.html', title='Event', form=form)
+
+@app.route("/event/delete", methods=['GET', 'POST'])
+def delete_event(event_id):
+    """ Delete event. """
+    event = Event.query.filter_by(event_id=event_id).first()
+    if event is not None:
+        db.session.delete(event)
+        db.session.commit()
+        flash('Event deleted.')
+    else:
+        flash('Event not found.')
+    return redirect(url_for('event'))
+
+@app.route("/event/update", methods=['GET', 'POST'])
+def update_event(event_id):
+    """ Update event. """
+    event = Event.query.filter_by(event_id=event_id).first()
+    form = EventForm()
+    if form.validate_on_submit():
+        event.event_name = form.event_name.data
+        event.event_description = form.event_description.data
+        event.event_location = form.event_location.data
+        db.session.commit()
+        flash('Event updated.')
+        return redirect(url_for('event'))
+    return render_template('event.html', title='Event', form=form)
+
+@app.route("/event/archive", methods=['GET', 'POST'])
+def archive_event(event_id):
+    """ Archive event. """
+    event = Event.query.filter_by(event_id=event_id).first()
+    if event is not None:
+        event.archived = True
+        db.session.commit()
+        flash('Event archived.')
+    else:
+        flash('Event not found.')
+    return redirect(url_for('event'))
