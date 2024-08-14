@@ -22,18 +22,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
+
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Events</a>
                     </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('logout') }}">logout</a>
+                    </li>
+                    {% else %}
                     <li class="nav-item">
                         <button class="btn btn-outline-priamary" data-toggle="modal" data-target="#loginModal">Sign In</button>
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-priamary">Sign Up</button>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

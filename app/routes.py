@@ -10,12 +10,14 @@ from flask_login import current_user, login_user, logout_user, login_required
 def home():
     """ Home page route. """
     form = LoginForm()
-    return render_template('home.html', form=form)
+    return render_template('home.html', form=form, title='Home')
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     """ Login route. """
+    if current_user.is_authenticated:
+        return redirect(url_for('event_dashboard'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -33,7 +35,7 @@ def login():
 def register():
     """ Register route. """
     if current_user.is_authenticated:
-        return redirect(url_for('/index'))
+        return redirect(url_for('/home'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
@@ -63,7 +65,9 @@ def logout():
 def event_dashboard():
     """ Event dashboard route. """
     form = EventForm()
-    return render_template('event_dashboard.html', form=form)
+    username = current_user.username
+    print(username)
+    return render_template('event_dashboard.html', form=form, title='Event', username=username)
 
 @app.route("/event/create", methods=['GET', 'POST'])
 def create_event():
@@ -128,3 +132,5 @@ def archive_event(event_id):
     else:
         flash('Event not found.')
     return redirect(url_for('event'))
+
+# @app.route("/event/unarchive", methods=['GET', 'POST'])

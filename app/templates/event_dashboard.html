@@ -1,5 +1,6 @@
-<h1>Welcome to event dashbord</h1>
-<body>
+<head>
+    <h1>Welcome to event dashbord {{ username }}</h1>
+</head><body>
     <h1>Create Event</h1>
     <form action="/event/create" method="post">
         {{ form.hidden_tag() }} 
