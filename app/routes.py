@@ -23,6 +23,7 @@ def login():
             flash('Invalid username or password', 'danger')
             print('Flash message set')
             return redirect(url_for('login'))
+        login_user(user) # Log the user in
         flash('Login successful', 'success')
         print('Redirecting to event_dashboard')
         return redirect(url_for('event_dashboard'))
@@ -53,11 +54,8 @@ def register():
 @login_required
 def event_dashboard():
     """ Event dashboard route. """
-    if current_user.is_authenticated:
-        form = EventForm()
-        return render_template('event_dashboard.html', form=form)
-    else:
-        return redirect(url_for('login'))
+    form = EventForm()
+    return render_template('event_dashboard.html', form=form)
 
 @app.route("/event/create", methods=['GET', 'POST'])
 def create_event():

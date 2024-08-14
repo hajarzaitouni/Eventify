@@ -3,8 +3,9 @@ from app import db
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, Integer, ForeignKey, Boolean
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(24), index=True, unique=True)
     first_name = db.Column(db.String(24), index=True)
