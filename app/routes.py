@@ -35,7 +35,7 @@ def login():
 def register():
     """ Register route. """
     if current_user.is_authenticated:
-        return redirect(url_for('/home'))
+        return redirect(url_for('home'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
