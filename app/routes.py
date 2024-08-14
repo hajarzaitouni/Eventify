@@ -52,10 +52,14 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 @app.route("/event", methods=['GET', 'POST'])
+@login_required
 def event_dashboard():
     """ Event dashboard route. """
-    form = EventForm()
-    return render_template('event_dashbord.html', form=form)
+    if current_user.is_authenticated:
+        form = EventForm()
+        return render_template('event_dashboard.html', form=form)
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/event/create", methods=['GET', 'POST'])
 def create_event():
@@ -73,8 +77,9 @@ def create_event():
             print('Congratulations, you have created an event!')
         except Exception as e:
             print("Error adding event to the database")
+            print(e)
             db.session.rollback()
-            return render_template('event.html', title='Event', form=form, error="Event creation failed.")
+            return render_template('event_dashbord.html', title='Event', form=form, error="Event creation failed.")
         return render_template('event_dashbord.html', title='Event', form=form)
     else:
         print(form.errors)

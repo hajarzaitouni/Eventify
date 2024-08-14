@@ -5,9 +5,11 @@
         {{ form.hidden_tag() }} 
         {{ form.event_name.label }} {{ form.event_name() }} {% for error in form.event_name.errors %}
         <span style="color: red">[{{ error }}]</span>
-        {% endfor %} {{ form.event_date.label }} {{ form.event_date() }} {% for error in form.event_date.errors %}
+        {% endfor %} {{ form.event_date.label }} {{ form.event_date() }}
+        {% for error in form.event_date.errors %}
         <span style="color: red">[{{ error }}]</span>
-        {% endfor %} {{ form.event_end.label }} {{ form.event_end() }} {% for error in form.event_end.errors %}
+        {% endfor %} {{ form.event_end.label }} {{ form.event_end() }}
+        {% for error in form.event_end.errors %}
         <span style="color: red">[{{ error }}]</span>
         {% endfor %} {{ form.event_location.label }} {{ form.event_location() }} {% for error in form.event_location.errors %}
         <span style="color: red">[{{ error }}]</span>
