@@ -32,7 +32,7 @@ def login():
 def register():
     """ Register route. """
     if current_user.is_authenticated:
-        return redirect(url_for('/'))
+        return redirect(url_for('/index'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
@@ -51,8 +51,14 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route("/logout")
+def logout():
+    """ Logout route. """
+    logout_user()
+    return redirect(url_for('home'))
+
 @app.route("/event", methods=['GET', 'POST'])
-@login_required
+# @login_required
 def event_dashboard():
     """ Event dashboard route. """
     if current_user.is_authenticated:
