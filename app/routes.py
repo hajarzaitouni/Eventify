@@ -59,7 +59,7 @@ def logout():
     return redirect(url_for('home'))
 
 @app.route("/event", methods=['GET', 'POST'])
-# @login_required
+@login_required
 def event_dashboard():
     """ Event dashboard route. """
     form = EventForm()
@@ -74,7 +74,8 @@ def create_event():
                       event_description=form.event_description.data,
                       event_location=form.event_location.data,
                       event_date=form.event_date.data,
-                      event_end=form.event_end.data,)
+                      event_end=form.event_end.data,
+                      user_id=current_user.user_id)
         try:
             db.session.add(event)
             db.session.commit()
@@ -83,11 +84,11 @@ def create_event():
             print("Error adding event to the database")
             print(e)
             db.session.rollback()
-            return render_template('event_dashbord.html', title='Event', form=form, error="Event creation failed.")
-        return render_template('event_dashbord.html', title='Event', form=form)
+            return render_template('event_dashboard.html', title='Event', form=form, error="Event creation failed.")
+        return render_template('event_dashboard.html', title='Event', form=form)
     else:
         print(form.errors)
-    return render_template('event_dashbord.html', title='Event', form=form)
+    return render_template('event_dashboard.html', title='Event', form=form)
 
 @app.route("/event/delete", methods=['GET', 'POST'])
 def delete_event(event_id):

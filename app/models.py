@@ -23,7 +23,9 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         """ Check password. """
         return bcrypt.checkpw(password.encode('utf-8'), self.password_hash.encode('utf-8'))
-    
+    def get_id(self):
+       return str(self.user_id) # Return userID as string
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
     
