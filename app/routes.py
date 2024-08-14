@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, flash
 from app import app, db
 from app.models import User, Event
 from app.forms import LoginForm, RegisterForm, EventForm
+from flask_login import current_user, login_user, logout_user, login_required
 
 
 @app.route('/')
@@ -30,6 +31,8 @@ def login():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     """ Register route. """
+    if current_user.is_authenticated:
+        return redirect(url_for('/'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
@@ -98,10 +101,11 @@ def update_event(event_id):
         event.event_name = form.event_name.data
         event.event_description = form.event_description.data
         event.event_location = form.event_location.data
+        event.event_date = form.event_date.data
+        event.event_end = form.event_end.data
         db.session.commit()
         flash('Event updated.')
         return redirect(url_for('event'))
-    return render_template('event.html', title='Event', form=form)
 
 @app.route("/event/archive", methods=['GET', 'POST'])
 def archive_event(event_id):
