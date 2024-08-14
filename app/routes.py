@@ -65,9 +65,16 @@ def logout():
 def event_dashboard():
     """ Event dashboard route. """
     form = EventForm()
+    EventUser = Event.query.filter_by(user_id=current_user.user_id).all()
     username = current_user.username
-    print(username)
-    return render_template('event_dashboard.html', form=form, title='Event', username=username)
+    # username = User.query.filter_by(username=username).first().username
+    # event_name = Event.query.filter_by(username=username).first().event_name
+    # event_description = Event.query.filter_by(username=username).first().event_description
+    # event_location = Event.query.filter_by(username=username).first().event_location
+    # event_date = Event.query.filter_by(username=username).first().event_date
+    # event_end = Event.query.filter_by(username=username).first().event_end
+    
+    return render_template('event_dashboard.html', form=form, title='Event', EventUser=EventUser, username=username)
 
 @app.route("/event/create", methods=['GET', 'POST'])
 def create_event():
@@ -84,17 +91,17 @@ def create_event():
             db.session.add(event)
             db.session.commit()
             print('Congratulations, you have created an event!')
+            return redirect(url_for('event_dashboard'))
         except Exception as e:
             print("Error adding event to the database")
             print(e)
             db.session.rollback()
             return render_template('event_dashboard.html', title='Event', form=form, error="Event creation failed.")
-        return render_template('event_dashboard.html', title='Event', form=form)
     else:
         print(form.errors)
     return render_template('event_dashboard.html', title='Event', form=form)
 
-@app.route("/event/delete", methods=['GET', 'POST'])
+@app.route("/delete_event/<int:event_id>", methods=['GET', 'POST'])
 def delete_event(event_id):
     """ Delete event. """
     event = Event.query.filter_by(event_id=event_id).first()
@@ -104,7 +111,7 @@ def delete_event(event_id):
         flash('Event deleted.')
     else:
         flash('Event not found.')
-    return redirect(url_for('event'))
+    return redirect(url_for('event_dashboard'))
 
 @app.route("/event/update", methods=['GET', 'POST'])
 def update_event(event_id):
