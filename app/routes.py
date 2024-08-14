@@ -32,6 +32,8 @@ def login():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     """ Register route. """
+    if current_user.is_authenticated:
+        return redirect(url_for('/index'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
@@ -50,8 +52,14 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route("/logout")
+def logout():
+    """ Logout route. """
+    logout_user()
+    return redirect(url_for('home'))
+
 @app.route("/event", methods=['GET', 'POST'])
-@login_required
+# @login_required
 def event_dashboard():
     """ Event dashboard route. """
     form = EventForm()
@@ -102,10 +110,11 @@ def update_event(event_id):
         event.event_name = form.event_name.data
         event.event_description = form.event_description.data
         event.event_location = form.event_location.data
+        event.event_date = form.event_date.data
+        event.event_end = form.event_end.data
         db.session.commit()
         flash('Event updated.')
         return redirect(url_for('event'))
-    return render_template('event.html', title='Event', form=form)
 
 @app.route("/event/archive", methods=['GET', 'POST'])
 def archive_event(event_id):
