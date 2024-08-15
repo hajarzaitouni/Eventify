@@ -3,7 +3,8 @@
 </head>
 <body>
   <h1>Create Event</h1>
-  <form action="/event/create" method="post">
+  <!-- <form action="/event/create" method="post"> -->
+  <form method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }} {{ form.event_name.label }} {{ form.event_name() }}
     {% for error in form.event_name.errors %}
     <span style="color: red">[{{ error }}]</span>

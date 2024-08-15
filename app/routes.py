@@ -1,8 +1,11 @@
 from flask import render_template, request, redirect, url_for, flash
-from app import app, db
+from app import app, db, allowed_file
 from app.models import User, Event
 from app.forms import LoginForm, RegisterForm, EventForm, UpdateEventForm, archiveEventForm
 from flask_login import current_user, login_user, logout_user, login_required
+from app.helper import save_picture
+from werkzeug.utils import secure_filename
+import os
 
 
 @app.route('/')
@@ -65,65 +68,69 @@ def logout():
 def event_dashboard():
     """ Event dashboard route. """
     form = EventForm()
-    # EventUser = Event.query.filter_by(user_id=current_user.user_id).all()
-    unarchived_events = Event.query.filter_by(is_archived=False).all()
-    username = current_user.username
-    # username = User.query.filter_by(username=username).first().username
-    # event_name = Event.query.filter_by(username=username).first().event_name
-    # event_description = Event.query.filter_by(username=username).first().event_description
-    # event_location = Event.query.filter_by(username=username).first().event_location
-    # event_date = Event.query.filter_by(username=username).first().event_date
-    # event_end = Event.query.filter_by(username=username).first().event_end
     
-    return render_template('event_dashboard.html', form=form, title='Event', username=username, events=unarchived_events)
+    EventUser = Event.query.filter_by(user_id=current_user.user_id, is_archived=False).all()
+    # unarchived_events = Event.query.filter_by(user_id=current_user.user_id, is_archived=False).all()
+    username = current_user.username
+    
+    return render_template('event_dashboard.html', form=form, title='Event', username=username, events=EventUser)
 
 
 @app.route("/event/archive", methods=['GET'])
+@login_required
 def show_archived_events():
     """ Show all archived events. """
-    archived_events = Event.query.filter_by(is_archived=True).all()
+    archived_events = Event.query.filter_by(user_id=current_user.user_id, is_archived=True).all()
     return render_template('archive_event.html', title='Archived Events', events=archived_events)
 
 
-@app.route("/event/create", methods=['GET', 'POST'])
+@app.route('/event/create', methods=['GET', 'POST'])
 def create_event():
-    """ Event route. """
     form = EventForm()
     if form.validate_on_submit():
-        event = Event(event_name=form.event_name.data,
-                      event_description=form.event_description.data,
-                      event_location=form.event_location.data,
-                      event_date=form.event_date.data,
-                      event_end=form.event_end.data,
-                      user_id=current_user.user_id)
-        try:
+        # Handle file upload
+        file = form.thumbnail.data
+        if file and allowed_file(file.filename):
+            filename = save_picture(file)
+            print(f"File saved as: {filename}")
+            
+            # Save the file path to the database
+            event = Event(
+                event_name=form.event_name.data,
+                event_date=form.event_date.data,
+                event_end=form.event_end.data,
+                event_location=form.event_location.data,
+                event_description=form.event_description.data,
+                thumbnail=filename  # Save the hashed filename to the database
+            )
             db.session.add(event)
             db.session.commit()
-            print('Congratulations, you have created an event!')
+            flash('Event created successfully!', 'success')
+            print('Event created successfully')
             return redirect(url_for('event_dashboard'))
-        except Exception as e:
-            print("Error adding event to the database")
-            print(e)
-            db.session.rollback()
-            return render_template('event_dashboard.html', title='Event', form=form, error="Event creation failed.")
-    else:
-        print(form.errors)
-    return render_template('event_dashboard.html', title='Event', form=form)
+        else:
+            flash('Invalid file type.', 'danger')
+    return render_template('event_dashboard.html', form=form)
+
 
 @app.route("/event/delete/<int:event_id>", methods=['GET', 'POST'])
+@login_required
 def delete_event(event_id):
     """ Delete event. """
     event = Event.query.filter_by(event_id=event_id).first()
-    if event is not None:
-        db.session.delete(event)
-        db.session.commit()
-        flash('Event deleted.')
-    else:
-        flash('Event not found.')
+    if event.user_id == current_user.user_id:
+        if event is not None:
+            db.session.delete(event)
+            db.session.commit()
+            flash('Event deleted.')
+        else:
+            flash('Event not found.')
     return redirect(url_for('event_dashboard'))
+    
 
 
 @app.route("/event/update/<int:event_id>", methods=['GET', 'POST'])
+@login_required
 def update_event(event_id):
     """ Update event. """
     event = Event.query.filter_by(event_id=event_id).first()
@@ -146,6 +153,7 @@ def update_event(event_id):
     return render_template('update_event.html', title='Update Event', form=form, event_id=event_id)
 
 @app.route("/event/archive/<int:event_id>", methods=['POST'])
+@login_required
 def archive_event(event_id):
     """ Archive event. """
     event = Event.query.get_or_404(event_id)

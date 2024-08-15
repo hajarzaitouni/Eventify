@@ -2,6 +2,7 @@ from app.models import User
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateTimeLocalField
 from wtforms.validators import DataRequired, Email, ValidationError, Length
+from flask_wtf.file import FileField, FileAllowed
 
 
 class LoginForm(FlaskForm):
@@ -37,7 +38,7 @@ class EventForm(FlaskForm):
     """ Event form. """
     event_name = StringField('Event Name', validators=[DataRequired()])
     event_description = StringField('Event Description', validators=[DataRequired()])
-    thumbnail = StringField('Thumbnail', validators=[DataRequired()])
+    thumbnail = FileField('Event Thumbnail')
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
     event_end = DateTimeLocalField('Event End', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
     event_location = StringField('Event Location', validators=[DataRequired()])
@@ -47,7 +48,7 @@ class UpdateEventForm(FlaskForm):
     """ Update event form. """
     event_name = StringField('Event Name')
     event_description = StringField('Event Description')
-    thumbnail = StringField('Thumbnail')
+    thumbnail = FileField("Update Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M')
     event_end = DateTimeLocalField('Event End', format='%Y-%m-%dT%H:%M')
     event_location = StringField('Event Location')
@@ -57,7 +58,7 @@ class archiveEventForm(FlaskForm):
     """ Archive event form. """
     event_name = StringField('Event Name')
     event_description = StringField('Event Description')
-    thumbnail = StringField('Thumbnail')
+    thumbnail = FileField("Update Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M')
     event_end = DateTimeLocalField('Event End', format='%Y-%m-%dT%H:%M')
     event_location = StringField('Event Location')
