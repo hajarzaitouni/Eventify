@@ -40,7 +40,9 @@ class Event(db.Model):
     event_date = db.Column(DateTime, default=datetime.utcnow, nullable=False)
     event_end = db.Column(DateTime, default=datetime.utcnow, nullable=False)
     event_location = db.Column(db.String(140))
+    is_archived = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+
 
     def __repr__(self):
         return '<Event {}>'.format(self.event_name)

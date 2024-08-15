@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from app import app, db
 from app.models import User, Event
-from app.forms import LoginForm, RegisterForm, EventForm
+from app.forms import LoginForm, RegisterForm, EventForm, UpdateEventForm, archiveEventForm
 from flask_login import current_user, login_user, logout_user, login_required
 
 
@@ -65,7 +65,8 @@ def logout():
 def event_dashboard():
     """ Event dashboard route. """
     form = EventForm()
-    EventUser = Event.query.filter_by(user_id=current_user.user_id).all()
+    # EventUser = Event.query.filter_by(user_id=current_user.user_id).all()
+    unarchived_events = Event.query.filter_by(is_archived=False).all()
     username = current_user.username
     # username = User.query.filter_by(username=username).first().username
     # event_name = Event.query.filter_by(username=username).first().event_name
@@ -74,7 +75,15 @@ def event_dashboard():
     # event_date = Event.query.filter_by(username=username).first().event_date
     # event_end = Event.query.filter_by(username=username).first().event_end
     
-    return render_template('event_dashboard.html', form=form, title='Event', EventUser=EventUser, username=username)
+    return render_template('event_dashboard.html', form=form, title='Event', username=username, events=unarchived_events)
+
+
+@app.route("/event/archive", methods=['GET'])
+def show_archived_events():
+    """ Show all archived events. """
+    archived_events = Event.query.filter_by(is_archived=True).all()
+    return render_template('archive_event.html', title='Archived Events', events=archived_events)
+
 
 @app.route("/event/create", methods=['GET', 'POST'])
 def create_event():
@@ -101,7 +110,7 @@ def create_event():
         print(form.errors)
     return render_template('event_dashboard.html', title='Event', form=form)
 
-@app.route("/delete_event/<int:event_id>", methods=['GET', 'POST'])
+@app.route("/event/delete/<int:event_id>", methods=['GET', 'POST'])
 def delete_event(event_id):
     """ Delete event. """
     event = Event.query.filter_by(event_id=event_id).first()
@@ -113,11 +122,12 @@ def delete_event(event_id):
         flash('Event not found.')
     return redirect(url_for('event_dashboard'))
 
-@app.route("/event/update", methods=['GET', 'POST'])
+
+@app.route("/event/update/<int:event_id>", methods=['GET', 'POST'])
 def update_event(event_id):
     """ Update event. """
     event = Event.query.filter_by(event_id=event_id).first()
-    form = EventForm()
+    form = UpdateEventForm()
     if form.validate_on_submit():
         event.event_name = form.event_name.data
         event.event_description = form.event_description.data
@@ -126,18 +136,28 @@ def update_event(event_id):
         event.event_end = form.event_end.data
         db.session.commit()
         flash('Event updated.')
-        return redirect(url_for('event'))
+        return redirect(url_for('event_dashboard'))
+    elif request.method == 'GET':
+        form.event_name.data = event.event_name
+        form.event_description.data = event.event_description
+        form.event_location.data = event.event_location
+        form.event_date.data = event.event_date
+        form.event_end.data = event.event_end
+    return render_template('update_event.html', title='Update Event', form=form, event_id=event_id)
 
-@app.route("/event/archive", methods=['GET', 'POST'])
+@app.route("/event/archive/<int:event_id>", methods=['POST'])
 def archive_event(event_id):
     """ Archive event. """
-    event = Event.query.filter_by(event_id=event_id).first()
-    if event is not None:
-        event.archived = True
-        db.session.commit()
-        flash('Event archived.')
+    event = Event.query.get_or_404(event_id)
+    if event.is_archived == True:
+        event.is_archived = False
+        flash('Event unarchived.')
     else:
-        flash('Event not found.')
-    return redirect(url_for('event'))
+        event.is_archived = True
+        flash('Event archived.')
+    db.session.commit()
+    return redirect(url_for('event_dashboard'))
+
+
 
 # @app.route("/event/unarchive", methods=['GET', 'POST'])
