@@ -115,6 +115,16 @@
                 event.preventDefault();
 
                 let formData = new FormData(this);
+                let pwd = formData.get('password');
+                let confirmPwd = formData.get('confirm_password');
+
+                if (pwd !== confirmPwd) {
+                    $('#alertMessage')
+                        .removeClass('d-none')
+                        .addClass('alert-danger')
+                        .html('Passwords must match.');
+                    return;
+                }
 
                 fetch('{{ url_for("register") }}', {
                     method: 'POST',
@@ -127,6 +137,11 @@
                             .removeClass('d-none alert-danger')
                             .addClass('alert-success')
                             .html(data.message);
+
+                        setTimeout(function () {
+                            $('#registerModal').modal('hide');
+                            $('#loginModal').modal('show');
+                        }, 2000);
 
                     } else {
                         $('#alertMessage')
