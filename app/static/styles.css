@@ -3,6 +3,12 @@ body {
     padding: 0;
 }
 
+.thumbnail_pic {
+    width: 50px;
+    height: auto;
+    border-radius: 50%;
+}
+
 /* welcome title section*/
 .welcome-title {
     background-image: url("../static/images/home.jpg");

@@ -34,7 +34,7 @@ class Event(db.Model):
     event_id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(140))
     event_description = db.Column(db.String(500))
-    thumbnail = db.Column(db.String(140))
+    thumbnail = db.Column(db.String(140), default='default.jpg')
     created = db.Column(DateTime, default=datetime.utcnow, nullable=False)
     updated = db.Column(DateTime, default=datetime.utcnow, nullable=False)
     event_date = db.Column(DateTime, default=datetime.utcnow, nullable=False)
