@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from app import app, db, allowed_file
 from app.models import User, Event
 from app.forms import LoginForm, RegisterForm, EventForm, UpdateEventForm, archiveEventForm
@@ -25,14 +25,11 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password', 'danger')
-            print('Flash message set')
-            return redirect(url_for('login'))
+            data = {'success': False, 'message': 'Invalid username or password!'}
+            return jsonify(data)
         login_user(user) # Log the user in
-        flash('Login successful', 'success')
-        print('Redirecting to event_dashboard')
-        return redirect(url_for('event_dashboard'))
-    return render_template('login.html', title='Sign In', form=form)
+        return jsonify({'success': True, 'message': 'Login successful!'})
+    return jsonify({'success': False, 'message': 'Form validation failed!'})
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

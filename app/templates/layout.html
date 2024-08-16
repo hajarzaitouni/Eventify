@@ -65,7 +65,43 @@
     {% include 'login.html'%}
 
     <!-- Bootstrap JS -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src={{ url_for('static', filename='js/bootstrap.bundle.min.js') }}></script>
+    <script>
+        $(document).ready(function () {
+            if (window.location.hash === '#loginModal') {
+                $('#loginModal').modal('show');
+            }
+
+            $('#loginForm').submit(function(event) {
+                event.preventDefault();
+                
+                let formData = new FormData(this);
+
+                fetch('{{ url_for("login") }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '{{ url_for("event_dashboard") }}';
+                    } else {
+                        $('#alertMessage')
+                            .removeClass('d-none')
+                            .addClass('alert-danger')
+                            .html(data.message);
+                    }
+                })
+                .catch(err => {
+                    $('#alertMessage')
+                        .removeClass('d-none')
+                        .addClass('alert-danger')
+                        .html('An error is occurred. Please try again.');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

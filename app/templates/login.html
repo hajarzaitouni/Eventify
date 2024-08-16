@@ -1,48 +1,37 @@
 <!-- Login Modal -->
-<div
-  class="modal fade"
-  id="loginModal"
-  tabindex="-1"
-  aria-labelledby="loginModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <form method="POST" action="{{ url_for('login') }}">
-            {{ form.hidden_tag() }}
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    {{ form.username(class="form-control", id="username") }}
-                    {% for error in form.username.errors %}
-                        <span class="text-danger">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    {{ form.password(class="form-control", id="password") }}
-                    {% for error in form.password.errors %}
-                        <span class="text-danger">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div class="form-check">
-                    {{ form.remember_me(class="form-check-input", id="remember_me") }}
-                    <label class="form-check-label" for="remember_me">Remember me</label>
-                </div>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Login</button>
+            <form id="loginForm">
+                {{ form.hidden_tag() }}
+                <div class="modal-body">
+                    <div class="alert alert-danger d-none" role="alert" id="alertMessage"></div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        {{ form.username(class="form-control", id="username") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        {{ form.password(class="form-control", id="password") }}
+                    </div>
+                    <div class="form-check">
+                        {{ form.remember_me(class="form-check-input", id="remember_me") }}
+                        <label class="form-check-label" for="remember_me">Remember me</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+            <div>
+                <p>Don't have an account?<a href="{{ url_for('register') }}">Create one</a></p>
             </div>
-        </form>
-        <div>
-            <p>Don't have an account?<a href="{{ url_for('register') }}">Create one</a></p>
         </div>
     </div>
-  </div>
 </div>
