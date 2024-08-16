@@ -12,8 +12,9 @@ import os
 @app.route('/home')
 def home():
     """ Home page route. """
-    form = LoginForm()
-    return render_template('home.html', form=form, title='Home')
+    login_form = LoginForm()
+    register_form = RegisterForm()
+    return render_template('home.html', login_form=login_form, register_form=register_form,title='Home')
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -38,21 +39,25 @@ def register():
         return redirect(url_for('home'))
     form = RegisterForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data,
-                    email=form.email.data,
-                    first_name=form.first_name.data,
-                    last_name=form.last_name.data)
-        user.set_password(form.password.data)
+        username = form.username.data
+        email = form.email.data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
+        password = form.password.data
+        user = User(username=username,
+                    email=email,
+                    first_name=first_name,
+                    last_name=last_name)
+        user.set_password(password)
         try:
             db.session.add(user)
             db.session.commit()
-            flash('Congratulations, you are now a registered user!')
+            return jsonify({'success': True, 'message': 'Registration successful!'})
         except Exception as e:
-            flash("Error adding user to the database")
             db.session.rollback()
-            return render_template('register.html', title='Register', form=form, error="Registration failed.")
-        return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+            return jsonify({'success': False, 'message': 'Registration failed!. Please try again.'})
+    
+    return jsonify({'success': False, 'message': 'Form validation failed!'})
 
 @app.route("/logout")
 def logout():

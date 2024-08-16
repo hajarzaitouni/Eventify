@@ -9,19 +9,19 @@
                 </button>
             </div>
             <form id="loginForm">
-                {{ form.hidden_tag() }}
+                {{ login_form.hidden_tag() }}
                 <div class="modal-body">
                     <div class="alert alert-danger d-none" role="alert" id="alertMessage"></div>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        {{ form.username(class="form-control", id="username") }}
+                        {{ login_form.username(class="form-control", id="username") }}
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        {{ form.password(class="form-control", id="password") }}
+                        {{ login_form.password(class="form-control", id="password") }}
                     </div>
                     <div class="form-check">
-                        {{ form.remember_me(class="form-check-input", id="remember_me") }}
+                        {{ login_form.remember_me(class="form-check-input", id="remember_me") }}
                         <label class="form-check-label" for="remember_me">Remember me</label>
                     </div>
                 </div>

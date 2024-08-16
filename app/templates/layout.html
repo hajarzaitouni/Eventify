@@ -30,16 +30,16 @@
                         <a class="nav-link" href="#">Events</a>
                     </li>
                     {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{{ url_for('logout') }}">logout</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('logout') }}">logout</a>
+                        </li>
                     {% else %}
-                    <li class="nav-item">
-                        <button class="btn btn-outline-priamary" data-toggle="modal" data-target="#loginModal">Sign In</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="btn btn-priamary">Sign Up</button>
-                    </li>
+                        <li class="nav-item">
+                            <button class="btn btn-outline-priamary" data-toggle="modal" data-target="#loginModal">Sign In</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-priamary" data-toggle="modal" data-target="#registerModal">Sign Up</button>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
@@ -63,12 +63,14 @@
     </footer>
 
     {% include 'login.html'%}
+    {% include 'register.html' %}
 
     <!-- Bootstrap JS -->
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src={{ url_for('static', filename='js/bootstrap.bundle.min.js') }}></script>
     <script>
+        // Login form submission
         $(document).ready(function () {
             if (window.location.hash === '#loginModal') {
                 $('#loginModal').modal('show');
@@ -99,6 +101,45 @@
                         .removeClass('d-none')
                         .addClass('alert-danger')
                         .html('An error is occurred. Please try again.');
+                });
+            });
+        });
+
+        // Register form submission
+        $(document).ready(function () {
+            if (window.location.hash === '#registerModal') {
+                $('#registerModal').modal('show');
+            }
+
+            $('#registerForm').submit(function (event) {
+                event.preventDefault();
+
+                let formData = new FormData(this);
+
+                fetch('{{ url_for("register") }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        $('#alertMessage')
+                            .removeClass('d-none alert-danger')
+                            .addClass('alert-success')
+                            .html(data.message);
+
+                    } else {
+                        $('#alertMessage')
+                            .removeClass('d-none')
+                            .addClass('alert-danger')
+                            .html(data.message);
+                    }
+                })
+                .catch(err => {
+                    $('#alertMessage')
+                        .removeClass('d-none')
+                        .addClass('alert-danger')
+                        .html('An error occurred. Please try again.');
                 });
             });
         });
