@@ -110,6 +110,20 @@ def create_event():
             flash('Event created successfully!', 'success')
             print('Event created successfully')
             return redirect(url_for('event_dashboard'))
+        elif not form.thumbnail.data:
+            event = Event(
+                event_name=form.event_name.data,
+                event_date=form.event_date.data,
+                event_end=form.event_end.data,
+                event_location=form.event_location.data,
+                event_description=form.event_description.data,
+                user_id=current_user.user_id
+            )
+            db.session.add(event)
+            db.session.commit()
+            flash('Event created successfully!', 'success')
+            print('Event created successfully')
+            return redirect(url_for('event_dashboard'))
         else:
             flash('Invalid file type.', 'danger')
     return render_template('event_dashboard.html', form=form, thumbnail=thumbnail_gen, title='Create Event')

@@ -38,7 +38,7 @@ class EventForm(FlaskForm):
     """ Event form. """
     event_name = StringField('Event Name', validators=[DataRequired()])
     event_description = StringField('Event Description', validators=[DataRequired()])
-    thumbnail = FileField('Event Thumbnail')
+    thumbnail = FileField("Update Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
     event_end = DateTimeLocalField('Event End', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
     event_location = StringField('Event Location', validators=[DataRequired()])
