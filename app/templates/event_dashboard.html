@@ -1,75 +1,90 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <title>Document</title>
-  <h1>Welcome to event dashbord {{ username }}</h1>
- </head>
-<body>
-  <h1>Create Event</h1>
-  <!-- <form action="/event/create" method="post"> -->
-  <form action="/dashboard/create" method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }} {{ form.event_name.label }} {{ form.event_name() }}
-    {% for error in form.event_name.errors %}
-    <span style="color: red">[{{ error }}]</span>
-    {% endfor %} {{ form.event_date.label }} {{ form.event_date() }} {% for
-    error in form.event_date.errors %}
-    <span style="color: red">[{{ error }}]</span>
-    {% endfor %} {{ form.event_end.label }} {{ form.event_end() }} {% for error
-    in form.event_end.errors %}
-    <span style="color: red">[{{ error }}]</span>
-    {% endfor %} {{ form.event_location.label }} {{ form.event_location() }} {%
-    for error in form.event_location.errors %}
-    <span style="color: red">[{{ error }}]</span>
-    {% endfor %} {{ form.event_description.label }} {{ form.event_description()
-    }} {% for error in form.event_description.errors %}
-    <span style="color: red">[{{ error }}]</span>
-    {% endfor %} {{ form.thumbnail.label }} {{ form.thumbnail() }} {% for error
-    in form.thumbnail.errors %}
-    <span style="color: red">[{{ error }}]</span>
-    {% endfor %} {{ form.submit() }}
-  </form>
-  <h1>Events</h1>
-  <table>
-    <tr>
-      <th>Thumbnail</th>
-      <th>Event Name</th>
-      <th>Event Date</th>
-      <th>Event End</th>
-      <th>Event Location</th>
-      <th>Event Description</th>
-    </tr>
-    {% for event in events %}
-    <tr>
-      <td><img class="thumbnail_pic" src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}" alt="Thumbnail"></td>
-      <td>{{ event.event_name }}</td>
-      <td>{{ event.event_date }}</td>
-      <td>{{ event.event_end }}</td>
-      <td>{{ event.event_location }}</td>
-      <td>{{ event.event_description }}</td>
-      <td>
-        <a
-          href="{{ url_for('update_event', event_id=event.event_id) }}"
-          class="btn btn-primary"
-          >Update</a
-        >
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <title>Document</title>
+    <h1>Welcome to event dashbord {{ username }}</h1>
+  </head>
+  <body>
+    <h1>Create Event</h1>
+    <!-- <form action="/event/create" method="post"> -->
+    <form
+      action="/dashboard/create"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {{ form.hidden_tag() }} {{ form.event_name.label }} {{ form.event_name()
+      }} {% for error in form.event_name.errors %}
+      <span style="color: red">[{{ error }}]</span>
+      {% endfor %} {{ form.event_date.label }} {{ form.event_date() }} {% for
+      error in form.event_date.errors %}
+      <span style="color: red">[{{ error }}]</span>
+      {% endfor %} {{ form.event_end.label }} {{ form.event_end() }} {% for
+      error in form.event_end.errors %}
+      <span style="color: red">[{{ error }}]</span>
+      {% endfor %} {{ form.event_location.label }} {{ form.event_location() }}
+      {% for error in form.event_location.errors %}
+      <span style="color: red">[{{ error }}]</span>
+      {% endfor %} {{ form.event_description.label }} {{
+      form.event_description() }} {% for error in form.event_description.errors
+      %}
+      <span style="color: red">[{{ error }}]</span>
+      {% endfor %} {{ form.thumbnail.label }} {{ form.thumbnail() }} {% for
+      error in form.thumbnail.errors %}
+      <span style="color: red">[{{ error }}]</span>
+      {% endfor %} {{ form.submit() }}
+    </form>
+    <h1>Events</h1>
+    <table>
+      <tr>
+        <th>Thumbnail</th>
+        <th>Event Name</th>
+        <th>Event Date</th>
+        <th>Event End</th>
+        <th>Event Location</th>
+        <th>Event Description</th>
+      </tr>
+      {% for event in events %}
+      <tr>
+        <td>
+          <img
+            class="thumbnail_pic"
+            src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+            alt="Thumbnail"
+          />
+        </td>
+        <td>{{ event.event_name }}</td>
+        <td>{{ event.event_date }}</td>
+        <td>{{ event.event_end }}</td>
+        <td>{{ event.event_location }}</td>
+        <td>{{ event.event_description }}</td>
+        <td>
+          <a
+            href="{{ url_for('update_event', event_id=event.event_id) }}"
+            class="btn btn-primary"
+            >Update</a
+          >
 
-        <a href="{{ url_for('delete_event', event_id=event.event_id) }}"
-          >Delete</a
-        >
+          <a href="{{ url_for('delete_event', event_id=event.event_id) }}"
+            >Delete</a
+          >
 
-        <!-- Archive Button -->
-        <form
-          action="{{ url_for('archive_event', event_id=event.event_id) }}"
-          method="post"
-          style="display: inline"
-        >
-          <button type="submit" class="btn btn-secondary">Archive</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-</body>
+          <!-- Archive Button -->
+          <form
+            action="{{ url_for('archive_event', event_id=event.event_id) }}"
+            method="post"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-secondary">Archive</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

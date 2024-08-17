@@ -77,6 +77,14 @@ def event_dashboard():
     return render_template('event_dashboard.html', form=form, title='Event', username=username, events=EventUser)
 
 
+@app.route("/events/", methods=['GET'])
+def show_events():
+    """ Show all events. """
+    events = Event.query.filter_by(is_archived=False).order_by(Event.event_id.desc()).all()
+    return render_template('events.html', title='Events', events=events)
+
+
+
 @app.route("/dashboard/archive", methods=['GET'])
 @login_required
 def show_archived_events():
