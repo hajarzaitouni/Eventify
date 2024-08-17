@@ -15,6 +15,7 @@
       <form
         method="POST"
         action="{{ url_for('update_event', event_id=event_id) }}"
+        enctype="multipart/form-data"
       >
         {{ form.hidden_tag() }}
         <div class="form-group">
@@ -36,6 +37,10 @@
         <div class="form-group">
           {{ form.event_end.label(class="form-label") }} {{
           form.event_end(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.thumbnail.label(class="form-label") }} {{
+          form.thumbnail(class="form-control-file") }}
         </div>
         <button type="submit" class="btn btn-primary">Update Event</button>
       </form>

@@ -65,7 +65,7 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route("/event", methods=['GET', 'POST'])
+@app.route("/dashboard", methods=['GET', 'POST'])
 @login_required
 def event_dashboard():
     """ Event dashboard route. """
@@ -77,7 +77,7 @@ def event_dashboard():
     return render_template('event_dashboard.html', form=form, title='Event', username=username, events=EventUser)
 
 
-@app.route("/event/archive", methods=['GET'])
+@app.route("/dashboard/archive", methods=['GET'])
 @login_required
 def show_archived_events():
     """ Show all archived events. """
@@ -85,17 +85,16 @@ def show_archived_events():
     return render_template('archive_event.html', title='Archived Events', events=archived_events)
 
 
-@app.route('/event/create', methods=['GET', 'POST'])
+@app.route('/dashboard/create', methods=['GET', 'POST'])
+@login_required
 def create_event():
     form = EventForm()
-    thumbnail_gen = 'path/to/default/image.jpg'  # Replace with the path to your default image
     if form.validate_on_submit():
         # Handle file upload
         file = form.thumbnail.data
         if file and allowed_file(file.filename):
             filename = save_picture(file)
             print(f"File saved as: {filename}")
-            thumbnail_gen = url_for("static", filename = "images/thumbnail_pics/" + filename)
             
             # Save the file path to the database
             event = Event(
@@ -128,10 +127,10 @@ def create_event():
             return redirect(url_for('event_dashboard'))
         else:
             flash('Invalid file type.', 'danger')
-    return render_template('event_dashboard.html', form=form, thumbnail=thumbnail_gen, title='Create Event')
+    return render_template('event_dashboard.html', form=form, title='Create Event')
 
 
-@app.route("/event/delete/<int:event_id>", methods=['GET', 'POST'])
+@app.route("/dashboard/delete/<int:event_id>", methods=['GET', 'POST'])
 @login_required
 def delete_event(event_id):
     """ Delete event. """
@@ -149,18 +148,26 @@ def delete_event(event_id):
     
 
 
-@app.route("/event/update/<int:event_id>", methods=['GET', 'POST'])
+@app.route("/dashboard/update/<int:event_id>", methods=['GET', 'POST'])
 @login_required
 def update_event(event_id):
     """ Update event. """
     event = Event.query.filter_by(event_id=event_id).first()
     form = UpdateEventForm()
+    filename = event.thumbnail
+    previous_filename = event.thumbnail
     if form.validate_on_submit():
+        file = form.thumbnail.data
+        if file and allowed_file(file.filename):
+            delete_picture(previous_filename)
+            filename = save_picture(file)
+            print(f"File saved as: {filename}")
         event.event_name = form.event_name.data
         event.event_description = form.event_description.data
         event.event_location = form.event_location.data
         event.event_date = form.event_date.data
         event.event_end = form.event_end.data
+        event.thumbnail = filename
         db.session.commit()
         flash('Event updated.')
         return redirect(url_for('event_dashboard'))
@@ -172,7 +179,7 @@ def update_event(event_id):
         form.event_end.data = event.event_end
     return render_template('update_event.html', title='Update Event', form=form, event_id=event_id)
 
-@app.route("/event/archive/<int:event_id>", methods=['POST'])
+@app.route("/dashboard/archive/<int:event_id>", methods=['POST'])
 @login_required
 def archive_event(event_id):
     """ Archive event. """
@@ -185,7 +192,3 @@ def archive_event(event_id):
         flash('Event archived.')
     db.session.commit()
     return redirect(url_for('event_dashboard'))
-
-
-
-# @app.route("/event/unarchive", methods=['GET', 'POST'])
