@@ -12,3 +12,9 @@ def save_picture(form_picture):
     print(f"Saving picture to: {picture_path}")
     form_picture.save(picture_path)
     return final_pic
+
+def delete_picture(picture):
+    picture_path = os.path.join(app.root_path, app.config["UPLOAD_FOLDER"], picture)
+    print(f"Deleting picture from: {picture_path}")
+    os.remove(picture_path)
+    return True

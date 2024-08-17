@@ -3,7 +3,7 @@ from app import app, db, allowed_file
 from app.models import User, Event
 from app.forms import LoginForm, RegisterForm, EventForm, UpdateEventForm, archiveEventForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.helper import save_picture
+from app.helper import save_picture, delete_picture
 from werkzeug.utils import secure_filename
 import os
 
@@ -138,6 +138,8 @@ def delete_event(event_id):
     event = Event.query.filter_by(event_id=event_id).first()
     if event.user_id == current_user.user_id:
         if event is not None:
+            if event.thumbnail and event.thumbnail != 'default.jpg':
+                delete_picture(event.thumbnail)
             db.session.delete(event)
             db.session.commit()
             flash('Event deleted.')
