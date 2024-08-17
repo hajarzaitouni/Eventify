@@ -5,6 +5,7 @@ from app.forms import LoginForm, RegisterForm, EventForm, UpdateEventForm, archi
 from flask_login import current_user, login_user, logout_user, login_required
 from app.helper import save_picture, delete_picture
 from werkzeug.utils import secure_filename
+from sqlalchemy.orm import joinedload
 import os
 
 
@@ -80,7 +81,7 @@ def event_dashboard():
 @app.route("/events/", methods=['GET'])
 def show_events():
     """ Show all events. """
-    events = Event.query.filter_by(is_archived=False).order_by(Event.event_id.desc()).all()
+    events = Event.query.options(joinedload(Event.author)).filter_by(is_archived=False).order_by(Event.event_id.desc()).all()
     return render_template('events.html', title='Events', events=events)
 
 

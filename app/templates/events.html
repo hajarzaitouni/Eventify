@@ -19,6 +19,7 @@
         <th>Event End</th>
         <th>Event Location</th>
         <th>Event Description</th>
+        <th>Event Owner</th>
       </tr>
       {% for event in events %}
       <tr>
@@ -34,6 +35,7 @@
         <td>{{ event.event_end }}</td>
         <td>{{ event.event_location }}</td>
         <td>{{ event.event_description }}</td>
+        <td>{{ event.author.username }}</td>
 
         {% endfor %}
       </tr>
