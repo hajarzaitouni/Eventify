@@ -11,7 +11,7 @@
       <form id="registerForm">
         {{ register_form.hidden_tag() }}
         <div class="modal-body">
-            <div class="alert alert-danger d-none" role="alert" id="alertMessage"></div>
+            <div class="alert alert-danger d-none" role="alert" id="registerAlertMessage"></div>
             <div class="form-group">
                 <label for="first_name">First Name</label>
                 {{ register_form.first_name(class="form-control", id="first_name") }}
