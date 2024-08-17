@@ -69,95 +69,14 @@
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src={{ url_for('static', filename='js/bootstrap.bundle.min.js') }}></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
     <script>
-        // Login form submission
-        $(document).ready(function () {
-            if (window.location.hash === '#loginModal') {
-                $('#loginModal').modal('show');
-            }
-
-            $('#loginForm').submit(function(event) {
-                event.preventDefault();
-                
-                let formData = new FormData(this);
-
-                fetch('{{ url_for("login") }}', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = '{{ url_for("event_dashboard") }}';
-                    } else {
-                        $('#alertMessage')
-                            .removeClass('d-none')
-                            .addClass('alert-danger')
-                            .html(data.message);
-                    }
-                })
-                .catch(err => {
-                    $('#alertMessage')
-                        .removeClass('d-none')
-                        .addClass('alert-danger')
-                        .html('An error is occurred. Please try again.');
-                });
-            });
-        });
-
-        // Register form submission
-        $(document).ready(function () {
-            if (window.location.hash === '#registerModal') {
-                $('#registerModal').modal('show');
-            }
-
-            $('#registerForm').submit(function (event) {
-                event.preventDefault();
-
-                let formData = new FormData(this);
-                let pwd = formData.get('password');
-                let confirmPwd = formData.get('confirm_password');
-
-                if (pwd !== confirmPwd) {
-                    $('#registerAlertMessage')
-                        .removeClass('d-none')
-                        .addClass('alert-danger')
-                        .html('Passwords must match.');
-                    return;
-                }
-
-                fetch('{{ url_for("register") }}', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        $('#registerAlertMessage')
-                            .removeClass('d-none alert-danger')
-                            .addClass('alert-success')
-                            .html(data.message);
-
-                        setTimeout(function () {
-                            $('#registerModal').modal('hide');
-                            $('#loginModal').modal('show');
-                        }, 2000);
-
-                    } else {
-                        $('#registerAlertMessage')
-                            .removeClass('d-none')
-                            .addClass('alert-danger')
-                            .html(data.message);
-                    }
-                })
-                .catch(err => {
-                    $('#registerAlertMessage')
-                        .removeClass('d-none')
-                        .addClass('alert-danger')
-                        .html('An error occurred. Please try again.');
-                });
-            });
-        });
+        let urlLogin = "{{ url_for('login') }}";
+        let urlRegister = "{{ url_for('register') }}";
+        let urlDashboard = "{{ url_for('event_dashboard') }}";
     </script>
 </body>
 </html>
