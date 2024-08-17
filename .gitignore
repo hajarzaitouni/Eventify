@@ -4,3 +4,5 @@ __pycache__
 migrations
 
 app/static/images/thumbnail_pics/*
+
+!app/static/images/thumbnail_pics/default.jpg
