@@ -9,20 +9,24 @@ body {
     border-radius: 50%;
 }
 
-/* welcome title section*/
-.welcome-title {
+.top-section {
     background-image: url("../static/images/home.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 820px;
+    min-height: 100vh;
     color: white;
-    text-align: center;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    flex-shrink: 0;
 }
 
 .navbar {
     background: transparent;
+    padding: 10px 0;
 }
 
 .navbar #navbarNav a.nav-link {
@@ -65,8 +69,13 @@ li.nav-item button.btn-priamary:hover {
     border-color: #cd8887;
 }
 
+
 .welcome-content {
-    padding-top: 280px;
+    flex-grow: 1;
+    /* This will make the welcome content take up the remaining space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .welcome-content h1 {
