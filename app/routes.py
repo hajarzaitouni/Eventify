@@ -75,7 +75,7 @@ def event_dashboard():
     EventUser = Event.query.filter_by(user_id=current_user.user_id, is_archived=False).all()
     username = current_user.username
     
-    return render_template('event_dashboard.html', form=form, title='Event', username=username, events=EventUser)
+    return render_template('dashboard.html', form=form, title='Event', username=username, events=EventUser)
 
 
 @app.route("/events/", methods=['GET'])
