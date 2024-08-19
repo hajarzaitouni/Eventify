@@ -33,6 +33,7 @@ def login():
         return jsonify({'success': True, 'message': 'Login successful!'})
     return jsonify({'success': False, 'message': 'Form validation failed!'})
 
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     """ Register route. """
@@ -53,7 +54,8 @@ def register():
         try:
             db.session.add(user)
             db.session.commit()
-            return jsonify({'success': True, 'message': 'Registration successful!'})
+            return jsonify({'success': True,
+                            'message': 'Account for {} was created successfully. You can login Now!'.format(username)})
         except Exception as e:
             db.session.rollback()
             return jsonify({'success': False, 'message': 'Registration failed!. Please try again.'})
