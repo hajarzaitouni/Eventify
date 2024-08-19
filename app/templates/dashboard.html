@@ -13,11 +13,14 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Create Event</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Archive</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Show Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                <button class="btn btn-outline-light nav-link" onclick="window.location.href='#'">Archive</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-outline-light nav-link" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
             </li>
         </ul>
     </div>
@@ -39,7 +42,7 @@
     <section>
         <div class="events-section">
             <div class="container">
-                <h2 class="text-center">Upcoming Events</h2>
+                <h2 class="text-center">My Events</h2>
                 <div class="row">
                     <div class="col-md-4 mb-4">
                         <div class="card" style="width: 18rem;">

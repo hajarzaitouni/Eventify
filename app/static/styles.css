@@ -80,6 +80,20 @@ li.nav-item button.btn-priamary:hover {
     border-color: #cd8887;
 }
 
+li.nav-item button.btn.btn-outline-light {
+    background-color: white;
+        color: black;
+        font-size: 1.5rem;
+        font-weight: 400;
+        padding: 5px 20px;
+        border-radius: 40px;
+        border-color: white;
+        transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+li.nav-item button.btn.btn-outline-light:hover {
+    background-color: #ffffff75;
+}
 
 .welcome-content {
     position: relative;
@@ -141,6 +155,32 @@ li.nav-item button.btn-priamary:hover {
     background-repeat: no-repeat;
     filter: blur(8px);
     z-index: -1;
+}
+
+/* Events section */
+.events-section {
+    padding: 50px 0;
+}
+
+.events-section h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.events-section .event {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.events-section .event img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 /* footer section style */
