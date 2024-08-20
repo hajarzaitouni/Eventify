@@ -34,7 +34,7 @@
                             </li>
                             {% if current_user.is_authenticated %}
                             <li class="nav-item">
-                                <a href="{{ url_for('logout') }}">logout</a>
+                                <button class="btn btn-outline-light nav-link" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
                             </li>
                             {% else %}
                             <li class="nav-item">

@@ -119,9 +119,8 @@ def create_event():
             )
             db.session.add(event)
             db.session.commit()
-            flash('Event created successfully!', 'success')
-            print('Event created successfully')
-            return redirect(url_for('event_dashboard'))
+            return jsonify(success=True, message='Event created successfully!', event_id=event.event_id)
+
         elif not form.thumbnail.data:
             event = Event(
                 event_name=form.event_name.data,
@@ -133,12 +132,13 @@ def create_event():
             )
             db.session.add(event)
             db.session.commit()
-            flash('Event created successfully!', 'success')
-            print('Event created successfully')
-            return redirect(url_for('event_dashboard'))
+            return jsonify(success=True, message='Event created successfully!', event_id=event.id)
+
         else:
-            flash('Invalid file type.', 'danger')
-    return render_template('event_dashboard.html', form=form, title='Create Event')
+            return jsonify(success=False, message='Invalid file type.')
+
+    errors = form.errors
+    return jsonify(success=False, message='Form validation failed', errors=errors)
 
 
 @app.route("/dashboard/delete/<int:event_id>", methods=['GET', 'POST'])

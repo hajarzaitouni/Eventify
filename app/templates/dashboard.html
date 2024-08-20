@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Create Event</a>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#createEventModal">Create Event</button>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Show Events</a>
@@ -39,52 +39,84 @@
 {% endblock %}
 
 {% block content %}
-    <section>
-        <div class="events-section">
-            <div class="container">
-                <h2 class="text-center">My Events</h2>
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                            <div class="card-body">
-                                <h5 class="card-title">Event Name 1</h5>
-                                <p class="card-text">Description of the event.</p>
-                                <a href="#" class="btn btn-primary">More Information</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                            <div class="card-body">
-                                <h5 class="card-title">Event Name 2</h5>
-                                <p class="card-text">Description of the event.</p>
-                                <a href="#" class="btn btn-primary">More Information</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                            <div class="card-body">
-                                <h5 class="card-title">Event Name 3</h5>
-                                <p class="card-text">Description of the event.</p>
-                                <a href="#" class="btn btn-primary">More Information</a>
-                            </div>
+<section>
+    <div class="events-section">
+        <div class="container">
+            <h2 class="text-center">My Events</h2>
+            {% if events %}
+            <div class="row">
+                {% for event in events %}
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem;">
+                        {% if event.thumbnail %}
+                        <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+                            class="card-img-top" alt="event_image">
+                        {% else %}
+                        <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.event_name }}</h5>
+                            <p class="card-text">{{ event.event_description }}</p>
+                            <a href="{{ url_for('update_event', event_id=event.event_id) }}"
+                                class="btn btn-primary">Update</a>
+                            <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
+            {% else %}
+                <div class="text-center">
+                    <h3 >No events created yet. Start creating your events Now!</h3>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#createEventModal">Create Event</button>
+                </div>
+            {% endif %}
         </div>
-    </section>
+    </div>
+</section>
+{% include 'create_event.html' %}
 {% endblock %}
-
 
 {% block extra_js %}
 <script>
     $(document).ready(function () {
         $('.top-section').addClass('dashboard-top-section');
     });
+</script>
+<script>
+    $(document).ready(function () {
+            if (window.location.hash === '#createEventModal') {
+                $('#createEventModal').modal('show');
+            }
+
+            $('#createEventForm').submit(function (event) {
+                event.preventDefault();
+
+                let formData = new FormData(this);
+
+                fetch('/dashboard/create', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('data :', data);
+                        if (data.success) {
+                            window.location.reload();
+                        } else {
+                            $('#createAlertMessage')
+                                .removeClass('d-none')
+                                .addClass('alert-danger')
+                                .html(data.message);
+                        }
+                    })
+                    .catch(err => {
+                        $('#createAlertMessage')
+                            .removeClass('d-none')
+                            .addClass('alert-danger')
+                            .html('An error occurred. Please try again.');
+                    });
+            });
+        });
 </script>
 {% endblock %}
