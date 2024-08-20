@@ -14,11 +14,14 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh;
+    /*min-height: 100vh;*/
+    height: 720px;
     color: white;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    margin: 20px;
+    border-radius: 10px;
 }
 
 .top-section:not(.dashboard-top-section) {
@@ -82,17 +85,19 @@ li.nav-item button.btn-priamary:hover {
 
 li.nav-item button.btn.btn-outline-light {
     background-color: white;
-        color: black;
-        font-size: 1.5rem;
-        font-weight: 400;
-        padding: 5px 20px;
-        border-radius: 40px;
-        border-color: white;
-        transition: background-color 0.5s ease, border-color 0.5s ease;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 5px 20px;
+    border-radius: 40px;
+    border-color: white;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 li.nav-item button.btn.btn-outline-light:hover {
-    background-color: #ffffff75;
+    background-color: #cd8887;
+    color: white;
+    border-color: #cd8887;
 }
 
 .welcome-content {
@@ -136,12 +141,6 @@ li.nav-item button.btn.btn-outline-light:hover {
     border-color: #cd8887;
 }
 
-/* custom css for dashboard */
-.dashboard-top-section {
-    min-height: 600px;
-    height: 600px;
-}
-
 .dashboard-top-section::before {
     content: '';
     position: absolute;
@@ -153,13 +152,14 @@ li.nav-item button.btn.btn-outline-light:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(8px);
+    filter: blur(2px);
     z-index: -1;
 }
 
 /* Events section */
 .events-section {
-    padding: 50px 0;
+    padding-top: 5px;
+    padding-bottom: 20px;
 }
 
 .events-section h2 {
