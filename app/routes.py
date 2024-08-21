@@ -15,7 +15,8 @@ def home():
     """ Home page route. """
     login_form = LoginForm()
     register_form = RegisterForm()
-    return render_template('home.html', login_form=login_form, register_form=register_form,title='Home')
+    events = Event.query.options(joinedload(Event.author)).filter_by(is_archived=False).order_by(Event.event_id.desc()).all()
+    return render_template('home.html', login_form=login_form, register_form=register_form,title='Home', events=events)
 
 
 @app.route("/login", methods=['GET', 'POST'])

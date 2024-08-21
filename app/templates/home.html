@@ -23,7 +23,7 @@
         <div class="container">
             <h2 class="text-center">Upcoming Events</h2>
             <div class="row">
-                <div class="col-md-4 mb-4">
+                <!-- <div class="col-md-4 mb-4">
                     <div class="card" style="width: 18rem;">
                         <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
                         <div class="card-body">
@@ -52,7 +52,30 @@
                             <a href="#" class="btn btn-primary">More Information</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                {% for event in events %}
+                {% if loop.index <= 3 %}
+                    <div class="col-md-4 mb-4">
+                        <form action="{{ url_for('archive_event', event_id=event.event_id) }}" method="post"
+                            class="archive-form">
+                            <div class="card" style="width: 18rem; cursor: pointer;">
+                                {% if event.thumbnail %}
+                                <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+                                    class="card-img-top" alt="event_image">
+                                {% else %}
+                                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ event.event_name }}</h5>
+                                    <p class="card-text">{{ event.event_description }}</p>
+                                    <!-- Archive Button -->
+                                    <button type="submit" class="btn btn-warning mt-2">Attend</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
