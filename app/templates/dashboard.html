@@ -11,16 +11,17 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#createEventModal">Create Event</button>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#createEventModal">Create Event</button>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Show Events</a>
+                <button class="btn btn-outline-primary nav-link" id="showEventsButton">Show Events</button>
             </li>
             <li class="nav-item">
-                <button class="btn btn-outline-light nav-link" onclick="window.location.href='#'">Archive</button>
+                <!--<a class="nav-link" href="{{ url_for('show_archived_events') }}">Archive</a>-->
+                <button class="btn btn-outline-primary nav-link" onclick="window.location.href='{{ url_for('show_archived_events') }}'">Archive</button>
             </li>
             <li class="nav-item">
-                <button class="btn btn-outline-light nav-link" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
+                <button class="btn btn-primary nav-link" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
             </li>
         </ul>
     </div>
@@ -47,29 +48,36 @@
             <div class="row">
                 {% for event in events %}
                 <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem;">
-                        {% if event.thumbnail %}
-                        <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
-                            class="card-img-top" alt="event_image">
-                        {% else %}
-                        <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ event.event_name }}</h5>
-                            <p class="card-text">{{ event.event_description }}</p>
-                            <a href="{{ url_for('update_event', event_id=event.event_id) }}"
-                                class="btn btn-primary">Update</a>
-                            <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-danger">Delete</a>
+                    <form action="{{ url_for('archive_event', event_id=event.event_id) }}" method="post"
+                        class="archive-form">
+                        <div class="card" style="width: 18rem; cursor: pointer;">
+                            {% if event.thumbnail %}
+                            <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+                                class="card-img-top" alt="event_image">
+                            {% else %}
+                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event.event_name }}</h5>
+                                <p class="card-text">{{ event.event_description }}</p>
+                                <a href="{{ url_for('update_event', event_id=event.event_id) }}"
+                                    class="btn btn-primary">Update</a>
+                                <a href="{{ url_for('delete_event', event_id=event.event_id) }}"
+                                    class="btn btn-danger">Delete</a>
+                                <!-- Archive Button -->
+                                <button type="submit" class="btn btn-warning mt-2">Archive</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
             {% else %}
-                <div class="text-center">
-                    <h3 >No events created yet. Start creating your events Now!</h3>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#createEventModal">Create Event</button>
-                </div>
+            <div class="text-center">
+                <h3>No events created yet. Start creating your events Now!</h3>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#createEventModal">Create
+                    Event</button>
+            </div>
             {% endif %}
         </div>
     </div>
@@ -80,7 +88,22 @@
 {% block extra_js %}
 <script>
     $(document).ready(function () {
+        // Add dashboard-top-section class to top-section
         $('.top-section').addClass('dashboard-top-section');
+
+        // Scroll to events section
+        $('#showEventsButton').click(function () {
+            $('html, body').animate({
+                scrollTop: $('.events-section').offset().top
+            }, 1000);
+        });
+
+        // Archive form submission
+        $(document).ready(function () {
+            $('.archive-form .card').on('click', function () {
+                $(this).closest('form').submit();
+            });
+        });
     });
 </script>
 <script>
