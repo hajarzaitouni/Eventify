@@ -133,7 +133,7 @@ def create_event():
             )
             db.session.add(event)
             db.session.commit()
-            return jsonify(success=True, message='Event created successfully!', event_id=event.id)
+            return jsonify(success=True, message='Event created successfully!', event_id=event.event_id)
 
         else:
             return jsonify(success=False, message='Invalid file type.')

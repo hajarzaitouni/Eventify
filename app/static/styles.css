@@ -187,7 +187,7 @@ li.nav-item button.btn.btn-outline-primary:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(2px);
+    filter: blur(8px);
     z-index: -1;
 }
 
