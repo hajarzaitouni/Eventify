@@ -23,40 +23,10 @@
         <div class="container">
             <h2 class="text-center">Upcoming Events</h2>
             <div class="row">
-                <!-- <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                        <div class="card-body">
-                            <h5 class="card-title">Event Name 1</h5>
-                            <p class="card-text">Description of the event.</p>
-                            <a href="#" class="btn btn-primary">More Information</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                        <div class="card-body">
-                            <h5 class="card-title">Event Name 2</h5>
-                            <p class="card-text">Description of the event.</p>
-                            <a href="#" class="btn btn-primary">More Information</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                        <div class="card-body">
-                            <h5 class="card-title">Event Name 3</h5>
-                            <p class="card-text">Description of the event.</p>
-                            <a href="#" class="btn btn-primary">More Information</a>
-                        </div>
-                    </div>
-                </div> -->
                 {% for event in events %}
                 {% if loop.index <= 3 %}
                     <div class="col-md-4 mb-4">
-                        <form action="{{ url_for('archive_event', event_id=event.event_id) }}" method="post"
+                        <form action="{{ url_for('show_events') }}" method="GET"
                             class="archive-form">
                             <div class="card" style="width: 18rem; cursor: pointer;">
                                 {% if event.thumbnail %}
@@ -68,7 +38,10 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ event.event_name }}</h5>
                                     <p class="card-text">{{ event.event_description }}</p>
-                                    <!-- Archive Button -->
+                                    <p class="card-text">Start Date: {{ event.event_date }}</p>
+                                    <p class="card-text">End Date: {{ event.event_end }}</p>
+                                    <p class="card-text">Location: {{ event.event_location }}</p>
+                                    <p class="card-text">Organizer: {{ event.author.username }}</p>
                                     <button type="submit" class="btn btn-warning mt-2">Attend</button>
                                 </div>
                             </div>
