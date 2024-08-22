@@ -10,21 +10,18 @@
 </button>
 <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="btn btn-outline-primary" href="{{ url_for('home') }}">Home</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
             </li>
-            <li class="nav-item active">
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#createEventModal">Create Event</button>
-            </li>
-            <li class="nav-item active">
-                <button class="btn btn-outline-primary nav-link" id="showEventsButton">Show Events</button>
+            <li class="nav-item">
+                <button class="nav-link" data-toggle="modal" data-target="#createEventModal">Create Event</button>
             </li>
             <li class="nav-item">
                 <!--<a class="nav-link" href="{{ url_for('show_archived_events') }}">Archive</a>-->
                 <button class="btn btn-outline-primary nav-link" onclick="window.location.href='{{ url_for('show_archived_events') }}'">Archive</button>
             </li>
             <li class="nav-item">
-                <button class="btn btn-primary nav-link" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
+                <button class="btn btn-primary" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
             </li>
         </ul>
     </div>

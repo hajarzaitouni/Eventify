@@ -94,7 +94,7 @@ def show_events():
 def show_archived_events():
     """ Show all archived events. """
     archived_events = Event.query.filter_by(user_id=current_user.user_id, is_archived=True).all()
-    return render_template('all_events.html', title='Archived Events', events=archived_events)
+    return render_template('archived_events.html', title='Archived Events', events=archived_events)
 
 
 @app.route('/dashboard/create', methods=['GET', 'POST'])
