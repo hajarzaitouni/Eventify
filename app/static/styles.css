@@ -24,9 +24,8 @@ body {
     border-radius: 10px;
 }
 
-.top-section:not(.dashboard-top-section) {
+.top-section:not(.dashboard-top-section):not(.archive-top-section) {
     background-image: url("../static/images/home.jpg");
-
 }
 
 .top-section>* {
@@ -187,7 +186,7 @@ li.nav-item button.btn.btn-outline-primary:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(8px);
+    filter: blur(4px);
     z-index: -1;
 }
 
@@ -218,11 +217,33 @@ li.nav-item button.btn.btn-outline-primary:hover {
     margin-bottom: 20px;
 }
 
+
+/* Archive details section */
 .archive-form {
     margin-bottom: 0;
 }
 
 .archive-form .card {
     cursor: pointer;
+}
+
+.archive-top-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../static/images/home.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(20px);
+    z-index: -1;
+}
+
+.archive-top-section>* {
+    position: relative;
+    z-index: 1;
 }
 /* footer section style */

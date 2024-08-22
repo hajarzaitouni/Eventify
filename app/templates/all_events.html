@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block welcome_content %}
+<div class="container">
+    <table class="table table-hover table-bordered table-light">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Event Name</th>
+                <th scope="col">Event Date</th>
+                <th scope="col">Event End</th>
+                <th scope="col">Event Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ event.event_name }}</td>
+                <td>{{ event.event_date }}</td>
+                <td>{{ event.event_end }}</td>
+                <td>{{ event.event_location }}</td>
+                <td>
+                    <a href="{{ url_for('update_event', event_id=event.event_id) }}" class="btn btn-primary">Update</a>
+                    <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-danger">Delete</a>
+                    <form action="{{ url_for('archive_event', event_id=event.event_id) }}" method="post" style="display: inline">
+                        <button type="submit" class="btn btn-secondary">Unarchive</button>
+                    </form>
+                </td>
+            </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+        // Add dashboard-top-section class to top-section
+        $('.top-section').addClass('archive-top-section');
+    });
+</script>
+{% endblock %}
