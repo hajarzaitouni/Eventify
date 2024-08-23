@@ -59,7 +59,12 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ event.event_name }}</h5>
                                     <p class="card-text">{{ event.event_description }}</p>
-                                    <a href="{{ url_for('update_event', event_id=event.event_id) }}" class="btn btn-primary">Update</a>
+                                    <button type="button" class="btn btn-primary update-event-button" data-event-id="{{ event.event_id }}"
+                                        data-event-name="{{ event.event_name }}" data-event-location="{{ event.event_location }}"
+                                        data-event-date="{{ event.event_date }}" data-event-end="{{ event.event_end }}"
+                                        data-event-description="{{ event.event_description }}" data-toggle="modal" data-target="#updateEventModal">
+                                        Update
+                                    </button>
                                     <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-danger">Delete</a>
                                     <button type="submit" class="btn btn-warning mt-2">Archive</button>
                                 </div>
@@ -78,6 +83,7 @@
     </div>
 </section>
 {% include 'create_event.html' %}
+{% include 'update_event.html' %}
 {% endblock %}
 
 {% block extra_js %}
@@ -93,6 +99,65 @@
             }, 1000);
         });
     });
+
+    $(document).ready(function () {
+            // Automatically show the update modal if the URL hash is set
+            if (window.location.hash.startsWith('#updateEventModal')) {
+                $('#updateEventModal').modal('show');
+            }
+
+            // Handle the update event form submission via AJAX
+            $('#updateEventForm').submit(function (event) {
+                event.preventDefault();
+
+                let formData = new FormData(this);
+                let eventId = $('#updateEventForm').data('event-id'); // Assuming you set this data attribute when opening the modal
+
+                fetch(`/dashboard/update/${eventId}`, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.reload(); // Reload the page to show updated event details
+                        } else {
+                            $('#updateAlertMessage')
+                                .removeClass('d-none')
+                                .addClass('alert-danger')
+                                .html(data.message);
+                        }
+                    })
+                    .catch(err => {
+                        $('#updateAlertMessage')
+                            .removeClass('d-none')
+                            .addClass('alert-danger')
+                            .html('An error occurred. Please try again.');
+                    });
+            });
+
+            // Pre-fill the modal with event data when the update button is clicked
+            $('.update-event-button').on('click', function () {
+                let eventId = $(this).data('event-id');
+                let eventName = $(this).data('event-name');
+                let eventLocation = $(this).data('event-location');
+                let eventDate = $(this).data('event-date');
+                let eventEnd = $(this).data('event-end');
+                let eventDescription = $(this).data('event-description');
+
+                // Set form data in the modal
+                $('#updateEventForm').data('event-id', eventId);
+                $('#updateEventModal #event_name').val(eventName);
+                $('#updateEventModal #event_location').val(eventLocation);
+                $('#updateEventModal #event_date').val(eventDate);
+                $('#updateEventModal #event_end').val(eventEnd);
+                $('#updateEventModal #event_description').val(eventDescription);
+                $('#updateEventModal #thumbnail').val(''); // Clear the thumbnail input
+
+                // Show the modal
+                $('#updateEventModal').modal('show');
+            });
+        });
 </script>
 <script>
     $(document).ready(function () {

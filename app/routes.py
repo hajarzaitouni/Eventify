@@ -182,14 +182,14 @@ def update_event(event_id):
         event.thumbnail = filename
         db.session.commit()
         flash('Event updated.')
-        return redirect(url_for('event_dashboard'))
+        return jsonify({'success': True, 'message': 'Event updated successfully.'})
     elif request.method == 'GET':
         form.event_name.data = event.event_name
         form.event_description.data = event.event_description
         form.event_location.data = event.event_location
         form.event_date.data = event.event_date
         form.event_end.data = event.event_end
-    return render_template('update_event.html', title='Update Event', form=form, event_id=event_id)
+    return jsonify({'success': False, 'message': 'Invalid request method.'}), 405
 
 @app.route("/dashboard/archive/<int:event_id>", methods=['POST'])
 @login_required
