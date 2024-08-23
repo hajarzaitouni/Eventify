@@ -1,43 +1,61 @@
 {% extends 'layout.html' %}
-{% block welcome_content %}
-<div class="container">
-    <table class="table table-hover table-bordered table-light">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Event Name</th>
-                <th scope="col">Event Date</th>
-                <th scope="col">Event End</th>
-                <th scope="col">Event Location</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for event in events %}
-            <tr>
-                <th scope="row">{{ loop.index }}</th>
-                <td>{{ event.event_name }}</td>
-                <td>{{ event.event_date }}</td>
-                <td>{{ event.event_end }}</td>
-                <td>{{ event.event_location }}</td>
-                <td>
-                    <a href="{{ url_for('update_event', event_id=event.event_id) }}" class="btn btn-primary">Update</a>
-                    <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-danger">Delete</a>
-                    <form action="{{ url_for('archive_event', event_id=event.event_id) }}" method="post" style="display: inline">
-                        <button type="submit" class="btn btn-secondary">Unarchive</button>
-                    </form>
-                </td>
-            </tr> 
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+{% block navbar %}
+        <a class="navbar-brand" href="{{ url_for('event_dashboard') }}">
+            <img src="../static/images/logo.png" alt="logo_Eventify" width="100" height="65" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+            </ul>
+        </div>
+{% endblock %}
+{% block content %}
+    <section>
+        <div class="events-section" style="margin-left: 20px; margin-right: 20px;">
+                <h2 class="text-center">All Events</h2>
+                <div class="row">
+                    {% for event in events %}
+                    <div class="col-md-4 mb-4">
+                        <form action="{{ url_for('show_events') }}" method="GET" class="archive-form">
+                            <div class="card" style="cursor: pointer;">
+                                {% if event.thumbnail %}
+                                <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+                                    class="card-img-top" alt="event_image">
+                                {% else %}
+                                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ event.event_name }}</h5>
+                                    <p class="card-text">{{ event.event_description }}</p>
+                                    <p class="card-text">Start Date: {{ event.event_date }}</p>
+                                    <p class="card-text">End Date: {{ event.event_end }}</p>
+                                    <p class="card-text">Location: {{ event.event_location }}</p>
+                                    <p class="card-text">Organizer: {{ event.author.username }}</p>
+                                    <div>
+                                        <button type="submit" class="btn btn-warning mt-2">See More</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endfor %}
+        </div>
+        </div>
+    </section>
 {% endblock %}
 
 {% block extra_js %}
 <script>
     $(document).ready(function () {
         // Add dashboard-top-section class to top-section
-        $('.top-section').addClass('archive-top-section');
+        $('.top-section').addClass('events-top-section');
     });
 </script>
 {% endblock %}

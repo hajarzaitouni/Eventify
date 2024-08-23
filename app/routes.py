@@ -85,7 +85,7 @@ def event_dashboard():
 def show_events():
     """ Show all events. """
     events = Event.query.options(joinedload(Event.author)).filter_by(is_archived=False).order_by(Event.event_id.desc()).all()
-    return render_template('events.html', title='Events', events=events)
+    return render_template('all_events.html', title='Events', events=events)
 
 
 

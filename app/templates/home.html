@@ -7,9 +7,9 @@
             <div class="col-md-12">
                 <h1>Your Event Journey Start Here</h1>
                 {% if current_user.is_authenticated %}
-                <a href="{{ url_for('event_dashboard') }}" class="btn btn-primary btn-lg">Create Yours Now</a>
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createEventModal">Create Yours Now</a>
                 {% else %}
-                <a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Create Yours Now</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Create Yours Now</a>
                 {% endif %}
             </div>
         </div>
@@ -23,16 +23,15 @@
 {% include 'register.html' %}
 
 <section>
-    <div class="events-section">
-        <div class="container">
-            <h2 class="text-center">Upcoming Events</h2>
-            <div class="row">
+    <div class="events-section" style="margin: 20px 20px;">
+        <h2 class="text-center">Upcoming Events</h2>
+        <div class="row">
                 {% for event in events %}
-                {% if loop.index <= 3 %}
+                    {% if loop.index <= 3 %}
                     <div class="col-md-4 mb-4">
                         <form action="{{ url_for('show_events') }}" method="GET"
                             class="archive-form">
-                            <div class="card" style="width: 18rem; cursor: pointer;">
+                            <div class="card" style="cursor: pointer;">
                                 {% if event.thumbnail %}
                                 <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
                                     class="card-img-top" alt="event_image">
@@ -46,15 +45,16 @@
                                     <p class="card-text">End Date: {{ event.event_end }}</p>
                                     <p class="card-text">Location: {{ event.event_location }}</p>
                                     <p class="card-text">Organizer: {{ event.author.username }}</p>
-                                    <button type="submit" class="btn btn-warning mt-2">Attend</button>
+                                    <div>
+                                        <button type="submit" class="btn btn-warning mt-2">Attend</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                {% endif %}
+                    {% endif %}
                 {% endfor %}
-            </div>
-        </div>
+            </div>    
     </div>
 </section>
 {% endblock %}
