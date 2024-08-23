@@ -1,85 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href={{ url_for('static', filename='css/bootstrap.min.css') }}>
-    <link rel="stylesheet" href={{ url_for('static', filename='styles.css') }}>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href={{ url_for('static',
+    filename='css/bootstrap.min.css') }}> <link rel="stylesheet" href={{
+    url_for('static', filename='styles.css') }}>
     <title>Eventify</title>
-</head>
+  </head>
 
-<body>
-    
+  <body>
     <div class="top-section">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light">
-                {% block navbar %}
-                <a class="navbar-brand" href="{{ url_for('home') }}">
-                    <img src="../static/images/logo.png"
-                         alt="logo_Eventify"
-                         style="width: 220px; padding-left: 25px;"
-                         loading="lazy">
-                </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ml-auto">
-                            {% if current_user.is_authenticated %}
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ url_for('event_dashboard') }}">Dashboard</a>
-                            </li>
-                            {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('show_events') }}">Events</a>
-                            </li>
-                            {% if current_user.is_authenticated %}
-                            <li class="nav-item">
-                                <button class="btn btn-primary" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
-                            </li>
-                            {% else %}
-                            <li class="nav-item">
-                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#loginModal">Sign
-                                    In</button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Sign Up</button>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                {% endblock %}
-            </nav>
-        </header>
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+          {% block navbar %}
+          <a class="navbar-brand" href="{{ url_for('home') }}">
+            <img
+              src="../static/images/logo.png"
+              alt="logo_Eventify"
+              style="width: 220px; padding-left: 25px"
+              loading="lazy"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              {% if current_user.is_authenticated %}
+              <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('event_dashboard') }}"
+                  >Dashboard</a
+                >
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('show_events') }}"
+                  >Events</a
+                >
+              </li>
+              {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <button
+                  class="btn btn-primary"
+                  onclick="window.location.href='{{ url_for('logout') }}'"
+                >
+                  Logout
+                </button>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <button
+                  class="btn btn-outline-primary"
+                  data-toggle="modal"
+                  data-target="#loginModal"
+                >
+                  Sign In
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#registerModal"
+                >
+                  Sign Up
+                </button>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+          {% endblock %}
+        </nav>
+      </header>
 
-        {% block welcome_content %}{% endblock %}
+      {% block welcome_content %}{% endblock %}
     </div>
 
     {% block content %}{% endblock %}
 
     <footer class="footer-section text-center">
-        <div class="container">
-            <p>&copy; 2024 Eventify. All rights reserved</p>
-        </div>
+      <div class="container">
+        <p>&copy; 2024 Eventify. All rights reserved</p>
+      </div>
     </footer>
-
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src={{ url_for('static', filename='js/bootstrap.bundle.min.js') }}></script>
-    
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
     <script src="{{ url_for('static', filename='js/register.js') }}"></script>
     <script>
-        let urlLogin = "{{ url_for('login') }}";
-        let urlRegister = "{{ url_for('register') }}";
-        let urlDashboard = "{{ url_for('event_dashboard') }}";
+      let urlLogin = "{{ url_for('login') }}";
+      let urlRegister = "{{ url_for('register') }}";
+      let urlDashboard = "{{ url_for('event_dashboard') }}";
     </script>
     {% block extra_js %}{% endblock %}
-</body>
+  </body>
 </html>
