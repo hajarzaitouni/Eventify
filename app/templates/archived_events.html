@@ -1,64 +1,88 @@
-{% extends 'layout.html' %}
-{% block navbar %}
-        <a class="navbar-brand" href="{{ url_for('event_dashboard') }}">
-            <img src="../static/images/logo.png" alt="logo_Eventify" width="100" height="65" loading="lazy">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ url_for('event_dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <button class="btn btn-primary"
-                        onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
-                </li>
-            </ul>
-        </div>
-{% endblock %}
-{% block welcome_content %}
-<div class="container archived-events">
-    <table class="table table-hover table-bordered table-light">
-        <thead>
-            <tr class="text-center">
-                <th scope="col">#</th>
-                <th scope="col">Event Name</th>
-                <th scope="col">Event Date</th>
-                <th scope="col">Event End</th>
-                <th scope="col">Event Location</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for event in events %}
-            <tr class="text-center">
-                <th scope="row">{{ loop.index }}</th>
-                <td>{{ event.event_name }}</td>
-                <td>{{ event.event_date }}</td>
-                <td>{{ event.event_end }}</td>
-                <td>{{ event.event_location }}</td>
-                <td>
-                    <a href="{{ url_for('update_event', event_id=event.event_id) }}" class="btn btn-primary">Update</a>
-                    <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-danger">Delete</a>
-                    <form action="{{ url_for('archive_event', event_id=event.event_id) }}" method="post" style="display: inline">
-                        <button type="submit" class="btn btn-warning">Unarchive</button>
-                    </form>
-                </td>
-            </tr> 
-            {% endfor %}
-        </tbody>
-    </table>
+{% extends 'layout.html' %} {% block navbar %}
+<a class="navbar-brand" href="{{ url_for('home') }}">
+  <img
+    src="../static/images/logo.png"
+    alt="logo_Eventify"
+    style="width: 220px; padding-left: 25px"
+    loading="lazy"
+  />
+</a>
+<button
+  class="navbar-toggler"
+  type="button"
+  data-toggle="collapse"
+  data-target="#navbarNav"
+  aria-controls="navbarNav"
+  aria-expanded="false"
+  aria-label="Toggle navigation"
+>
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('event_dashboard') }}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <button
+        class="btn btn-primary"
+        onclick="window.location.href='{{ url_for('logout') }}'"
+      >
+        Logout
+      </button>
+    </li>
+  </ul>
 </div>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block welcome_content %}
+<div class="container archived-events">
+  <table class="table table-hover table-bordered table-light">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">#</th>
+        <th scope="col">Event Name</th>
+        <th scope="col">Event Date</th>
+        <th scope="col">Event End</th>
+        <th scope="col">Event Location</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr class="text-center">
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{ event.event_name }}</td>
+        <td>{{ event.event_date }}</td>
+        <td>{{ event.event_end }}</td>
+        <td>{{ event.event_location }}</td>
+        <td>
+          <a
+            href="{{ url_for('update_event', event_id=event.event_id) }}"
+            class="btn btn-primary"
+            >Update</a
+          >
+          <a
+            href="{{ url_for('delete_event', event_id=event.event_id) }}"
+            class="btn btn-danger"
+            >Delete</a
+          >
+          <form
+            action="{{ url_for('archive_event', event_id=event.event_id) }}"
+            method="post"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-warning">Unarchive</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %} {% block extra_js %}
 <script>
-    $(document).ready(function () {
-        // Add dashboard-top-section class to top-section
-        $('.top-section').addClass('archive-top-section');
-    });
+  $(document).ready(function () {
+    // Add dashboard-top-section class to top-section
+    $('.top-section').addClass('archive-top-section');
+  });
 </script>
 {% endblock %}
