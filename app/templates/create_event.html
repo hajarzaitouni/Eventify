@@ -13,28 +13,22 @@
                 <div class="modal-body">
                     <div class="alert alert-danger d-none" role="alert" id="createAlertMessage"></div>
                     <div class="form-group">
-                        <label for="event_name">Event Name</label>
-                        {{ form.event_name(class="form-control", id="event_name") }}
+                        {{ form.event_name(class="form-control", id="event_name", placeholder="Event Name") }}
                     </div>
                     <div class="form-group">
-                        <label for="event_date">Event date</label>
-                        {{ form.event_date(class="form-control", id="event_date") }}
+                        {{ form.event_location(class="form-control", id="event_location", placeholder="Event location") }}
                     </div>
                     <div class="form-group">
-                        <label for="event_end">Event end date</label>
-                        {{ form.event_end(class="form-control", id="event_end") }}
+                        {{ form.event_date(class="form-control", id="event_date", placeholder="Event date") }}
                     </div>
                     <div class="form-group">
-                        <label for="thumbnail">Event thumbnail</label>
-                        {{ form.thumbnail(class="form-control", id="thumbnail") }}
+                        {{ form.event_end(class="form-control", id="event_end", placeholder="Event end date") }}
                     </div>
                     <div class="form-group">
-                        <label for="event_location">Event location</label>
-                        {{ form.event_location(class="form-control", id="event_location") }}
+                        {{ form.thumbnail(class="form-control", id="thumbnail", placeholder="Event thumbnail") }}
                     </div>
                     <div class="form-group">
-                        <label for="event_description">Event description</label>
-                        {{ form.event_description(class="form-control", id="event_description") }}
+                        {{ form.event_description(class="form-control", id="event_description", placeholder="Event description") }}
                     </div>
                 </div>
                 <div class="modal-footer">

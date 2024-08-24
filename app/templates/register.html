@@ -13,34 +13,28 @@
         <div class="modal-body">
             <div class="alert alert-danger d-none" role="alert" id="registerAlertMessage"></div>
             <div class="form-group">
-                <label for="first_name">First Name</label>
-                {{ register_form.first_name(class="form-control", id="first_name") }}
+                {{ register_form.first_name(class="form-control", id="first_name", placeholder="First Name") }}
             </div>
             <div class="form-group">
-                <label for="last_name">Last Name</label>
-                {{ register_form.last_name(class="form-control", id="last_name") }}
+                {{ register_form.last_name(class="form-control", id="last_name", placeholder="Last Name") }}
             </div>
             <div class="form-group">
-                <label for="username">Username</label>
-                {{ register_form.username(class="form-control", id="username") }}
+                {{ register_form.username(class="form-control", id="username", placeholder="Username") }}
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                {{ register_form.email(class="form-control", id="email") }}
+                {{ register_form.email(class="form-control", id="email", placeholder="Email") }}
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                {{ register_form.password(class="form-control", id="password") }}
+                {{ register_form.password(class="form-control", id="password", placeholder="Password") }}
             </div>
             <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                {{ register_form.confirm_password(class="form-control", id="confirm_password") }}
+                {{ register_form.confirm_password(class="form-control", id="confirm_password", placeholder="Confirm Password") }}
             </div>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Register</button>
             <p class="mt-3">
-                Have an account?<a href="{{ url_for('login') }} " data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Sign in</a>
+                Have an account? <a href="{{ url_for('login') }} " data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Sign in</a>
             </p>
         </div>
       </form>

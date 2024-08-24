@@ -1,0 +1,163 @@
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-top: 50px;
+}
+
+.modal-header {
+    color: #3f3232;
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 2px solid #ee523578;
+    overflow: hidden;
+}
+
+.modal-body {
+    padding: 5px 10px;
+}
+
+.modal-body .form-group {
+    margin-bottom: 4px;
+}
+
+.modal-body .form-group .form-control {
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.modal-body .form-group .form-control::placeholder {
+    font-weight: 500;
+    font-size: small;
+}
+
+.modal-body .form-group .form-control:focus {
+    border-color: #d8cbcb;
+    box-shadow: 0 0 0 0.1rem rgb(238 82 53 / 0.35);
+}
+
+.modal-body .form-check {
+    margin-top: 10px;
+}
+
+.modal-body .form-check label {
+    font-weight: 500;
+    font-size: small;
+}
+
+.modal-body .form-check input {
+    margin-right: 5px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction:column;
+    padding: 5px;
+    border-top: 0 solid #d8cbcb;
+}
+
+.modal-footer button {
+    background-color: #ee5109;
+    color: white;
+    border-color: #ee5109;
+    border-radius: 10px;
+    padding: 5px 20px;
+    align-items: center;
+    width: 140px;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.modal-footer button:hover {
+    background-color: #a5330f;
+    color: white;
+    border-color: #a5330f;
+}
+
+.modal-footer p {
+    font-size: small;
+    font-weight: 500;
+}
+
+.modal-footer p a {
+    color: #ee5109;
+    font-weight: 600;
+}
+
+/* create Event modal */
+
+#event_date {
+    background-color: #d8cbcb59;
+    border: 2px solid #ee510975;
+}
+
+#event_end {
+    background-color: #d8cbcb59;
+    border: 2px solid #ee510975;
+}
+
+#event_description {
+    height: 100px;
+}
+
+.form-control::placeholder {
+    text-align: left;
+    vertical-align: top;
+    line-height: normal;
+    /* Reset line height */
+}
+
+/* cards buttons */
+.cards-buttons {
+    margin-top: 10px;
+}
+
+.cards-buttons button.btn.btn-primary {
+    background-color: #d8cbcb;
+    color: #3f3232;
+    border-color: #d8cbcb;
+    border-radius: 10px;
+    padding: 5px 20px;
+    align-items: center;
+    width: 100px;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.cards-buttons button.btn.btn-primary:hover {
+    background-color: #6f3216;
+    color: white;
+    border-color: #6f3216;
+}
+
+.cards-buttons a.btn.btn-danger {
+    background-color: #ee5109;
+    color: white;
+    border-color: #ee5109;
+    border-radius: 10px;
+    padding: 5px 20px;
+    align-items: center;
+    width: 100px;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.cards-buttons a.btn.btn-danger:hover {
+    background-color: #a5330f;
+    color: white;
+    border-color: #a5330f;
+}
+
+.cards-buttons button.btn.btn-warning {
+    border-radius: 10px;
+    color: #3f3232;
+    padding: 5px 20px;
+    align-items: center;
+    width: 100px;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}

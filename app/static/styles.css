@@ -143,8 +143,9 @@ li.nav-item button.btn.btn-outline-primary:hover {
     margin-right: 5px;
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
-    color: #ffffff75;
+.navbar-light .navbar-nav button.nav-link:hover {
+    background-color: #ffffff75;
+    color: white;
 }
 
 .welcome-content {
@@ -158,8 +159,8 @@ li.nav-item button.btn.btn-outline-primary:hover {
 
 .welcome-content h1 {
     color: whitesmoke;
-    font-size: 5.4rem;
-    text-shadow: 0 0 5px black;
+    font-size: 5rem;
+    text-shadow: 0 0 2px black;
     font-weight: 600;
     line-height: 5.5rem;
 }
@@ -170,22 +171,21 @@ li.nav-item button.btn.btn-outline-primary:hover {
     font-weight: 400;
 }
 
-.welcome-content a.btn.btn-primary.btn-lg {
-    background-color: #d8cbcb;
-    color: #3f3232;
+.welcome-content a.btn.btn-outline-primary.btn-lg {
+    color: #ffffff;
     font-size: 1.5rem;
     font-weight: 400;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 10px 10px;
+    border-radius: 20px;
     border-color: #d8cbcb;
     margin-top: 20px;
     transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
-.welcome-content a.btn.btn-primary.btn-lg:hover {
-    background-color: #cd8887;
+.welcome-content a.btn.btn-outline-primary.btn-lg:hover {
+    background-color: #ffffff;;
     color: black;
-    border-color: #cd8887;
+    border-color: #ffffff;
 }
 
 .dashboard-top-section::before {
@@ -211,9 +211,10 @@ li.nav-item button.btn.btn-outline-primary:hover {
 }
 
 .events-section h2 {
-    font-size: 3rem;
-    font-weight: 600;
+    font-size: 2.2rem;
+    font-weight: 400;
     margin-bottom: 30px;
+    color: #3f3233;
 }
 
 .card {
@@ -356,7 +357,6 @@ tbody td button.btn.btn-warning:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(4px);
     z-index: -1;
 }
 
@@ -364,6 +364,7 @@ tbody td button.btn.btn-warning:hover {
     position: relative;
     z-index: 1;
 }
+
 /* footer section style */
 .footer-section {
     background-color: #3f3232;
