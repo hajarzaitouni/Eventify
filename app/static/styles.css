@@ -236,6 +236,22 @@ li.nav-item button.btn.btn-outline-primary:hover {
     padding: 20px;
 }
 
+.card-body h5 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #3f3233;
+}
+.card-body p {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.text-muted {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #a5330f;
+}
+
 .archive-top-section::before {
     content: '';
     position: absolute;

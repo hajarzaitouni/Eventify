@@ -29,33 +29,41 @@
                 {% for event in events %}
                     {% if loop.index <= 3 %}
                     <div class="col-md-4 mb-4">
-                        <form action="{{ url_for('show_events') }}" method="GET"
-                            class="archive-form">
-                            <div class="card" style="cursor: pointer;">
-                                {% if event.thumbnail %}
-                                <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+                        <div class="card" style="cursor: pointer;">
+                            {% if event.thumbnail %}
+                            <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
                                     class="card-img-top" alt="event_image">
-                                {% else %}
-                                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                                {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ event.event_name }}</h5>
-                                    <p class="card-text">{{ event.event_description }}</p>
-                                    <p class="card-text">Start Date: {{ event.event_date }}</p>
-                                    <p class="card-text">End Date: {{ event.event_end }}</p>
-                                    <p class="card-text">Location: {{ event.event_location }}</p>
-                                    <p class="card-text">Organizer: {{ event.author.username }}</p>
-                                    <div>
-                                        <button type="submit" class="btn btn-warning mt-2">Attend</button>
-                                    </div>
+                            {% else %}
+                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event.event_name }} <span class="text-muted">at {{ event.event_location }}</span></h5>
+                                <div>
+                                    <button type="button" class="btn btn-info mt-2 more-information-btn">Show Details</button>
+                                </div>
+                                <div class="additional-info mt-3" style="display: none;">
+                                    <p class="card-text"><strong>Description:</strong> {{ event.event_description }}</p>
+                                    <p class="card-text"><strong>Location:</strong> {{ event.event_location }}</p>
+                                    <p class="card-text"><strong>Start Date:</strong> {{ event.event_date }}</p>
+                                    <p class="card-text"><strong>End Date:</strong> {{ event.event_end }}</p>
+                                    <p class="card-text"><strong>Organizer:</strong> {{ event.author.username }}</p>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     {% endif %}
                 {% endfor %}
-            </div>    
+        </div>    
     </div>
 </section>
 {% endblock %}
 
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+        $('.more-information-btn').click(function () {
+            $(this).closest('.card-body').find('.additional-info').toggle();
+        });
+    });
+</script>
+{% endblock %}
