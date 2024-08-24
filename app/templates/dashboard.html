@@ -175,6 +175,12 @@
         if (window.location.hash === '#createEventModal') {
             $('#createEventModal').modal('show');
         }
+        const urlParams = new URLSearchParams(window.location.search);
+        const show_modal = urlParams.get('show_modal');
+
+        if (show_modal === 'true') {
+            $('#createEventModal').modal('show');
+        }
 
         $('#createEventForm').submit(function (event) {
             event.preventDefault();
