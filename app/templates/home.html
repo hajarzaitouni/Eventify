@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <h1>Your Event Journey Start Here</h1>
                 {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('create_event') }}" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#createEventModal">Create Yours Now</a>
+                <a href="{{ url_for('event_dashboard', show_modal='true') }}" class="btn btn-outline-primary btn-lg">Create Yours Now</a>
                 {% else %}
                     <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#loginModal">Create Yours Now</a>
                 {% endif %}
