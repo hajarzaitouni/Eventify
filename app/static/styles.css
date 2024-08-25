@@ -304,7 +304,7 @@ li.nav-item button.btn.btn-outline-primary:hover {
     text-align: center;
 }
 
-tbody td a.btn.btn-primary {
+tbody td button.btn.btn-primary {
     background-color: #d8cbcb;
     color: #3f3232;
     font-weight: 400;
@@ -383,6 +383,7 @@ tbody td button.btn.btn-warning:hover {
     position: relative;
     z-index: 1;
 }
+
 
 /* footer section style */
 .footer-section {

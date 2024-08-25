@@ -2,7 +2,6 @@ import bcrypt
 from app import db
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, Integer, ForeignKey, Boolean
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 class User(UserMixin, db.Model):

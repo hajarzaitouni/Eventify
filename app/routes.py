@@ -4,7 +4,6 @@ from app.models import User, Event
 from app.forms import LoginForm, RegisterForm, EventForm, UpdateEventForm, archiveEventForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.helper import save_picture, delete_picture
-from werkzeug.utils import secure_filename
 from sqlalchemy.orm import joinedload
 import os
 

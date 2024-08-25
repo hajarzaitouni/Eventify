@@ -50,11 +50,12 @@
         <td>{{ event.event_end }}</td>
         <td>{{ event.event_location }}</td>
         <td>
-          <a
-            href="{{ url_for('update_event', event_id=event.event_id) }}"
-            class="btn btn-primary"
-            >Update</a
-          >
+          <button type="button" class="btn btn-primary update-event-button" data-event-id="{{ event.event_id }}"
+                  data-event-name="{{ event.event_name }}" data-event-location="{{ event.event_location }}"
+                  data-event-date="{{ event.event_date }}" data-event-end="{{ event.event_end }}"
+                  data-event-description="{{ event.event_description }}" data-toggle="modal" data-target="#updateEventModal">
+            Update
+           </button>
           <a
             href="{{ url_for('delete_event', event_id=event.event_id) }}"
             class="btn btn-danger"
