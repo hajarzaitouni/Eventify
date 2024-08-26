@@ -277,6 +277,10 @@ li.nav-item button.btn.btn-outline-primary:hover {
 
 /* archived-events table */
 
+.empty {
+    height: 80px;
+}
+
 .archived-events {
     padding-top: 20px;
     padding-bottom: 20px;

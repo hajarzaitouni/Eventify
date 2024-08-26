@@ -60,7 +60,7 @@ def register():
             db.session.rollback()
             return jsonify({'success': False, 'message': 'Registration failed!. Please try again.'})
     
-    return jsonify({'success': False, 'message': 'Form validation failed!'})
+    return jsonify({'success': False, 'message': 'Registration failed!. Please try again'})
 
 @app.route("/logout")
 def logout():
@@ -92,8 +92,9 @@ def show_events():
 @login_required
 def show_archived_events():
     """ Show all archived events. """
+    form = UpdateEventForm()
     archived_events = Event.query.filter_by(user_id=current_user.user_id, is_archived=True).all()
-    return render_template('archived_events.html', title='Archived Events', events=archived_events)
+    return render_template('archived_events.html', title='Archived Events', events=archived_events, form=form)
 
 
 @app.route('/dashboard/create', methods=['GET', 'POST'])

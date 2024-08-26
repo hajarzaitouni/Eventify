@@ -5,7 +5,7 @@
     <div class="container text-center">
         <div class="row">
             <div class="col-md-12">
-                <h1>Your Event Journey Start Here</h1>
+                <h1>Your Event Journey Starts Here</h1>
                 {% if current_user.is_authenticated %}
                 <a href="{{ url_for('event_dashboard', show_modal='true') }}" class="btn btn-outline-primary btn-lg">Create Yours Now</a>
                 {% else %}
