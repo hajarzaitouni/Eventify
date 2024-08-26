@@ -1,69 +1,94 @@
-{% extends 'layout.html' %}
-
-{% block welcome_content %}
+{% extends 'layout.html' %} {% block welcome_content %}
 <section class="welcome-content">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Your Event Journey Starts Here</h1>
-                {% if current_user.is_authenticated %}
-                <a href="{{ url_for('event_dashboard', show_modal='true') }}" class="btn btn-outline-primary btn-lg">Create Yours Now</a>
-                {% else %}
-                    <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#loginModal">Create Yours Now</a>
-                {% endif %}
-            </div>
-        </div>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Your Event Journey Starts Here</h1>
+        {% if current_user.is_authenticated %}
+        <a
+          href="{{ url_for('event_dashboard', show_modal='true') }}"
+          class="btn btn-outline-primary btn-lg"
+          >Create Yours Now</a
+        >
+        {% else %}
+        <a
+          href="{{ url_for('login') }}"
+          class="btn btn-outline-primary btn-lg"
+          data-toggle="modal"
+          data-target="#loginModal"
+          >Create Yours Now</a
+        >
+        {% endif %}
+      </div>
     </div>
+  </div>
 </section>
-{% endblock %}
-
-{% block content %}
-
-{% include 'login.html'%}
-{% include 'register.html' %}
+{% endblock %} {% block content %} {% include 'login.html'%} {% include
+'register.html' %}
 
 <section>
-    <div class="events-section" style="margin: 20px 20px;">
-        <h2 class="text-center">Upcoming Events</h2>
-        <div class="row">
-                {% for event in events %}
-                    {% if loop.index <= 3 %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="cursor: pointer;">
-                            {% if event.thumbnail %}
-                            <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
-                                    class="card-img-top" alt="event_image">
-                            {% else %}
-                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">{{ event.event_name }} <span class="text-muted">at {{ event.event_location }}</span></h5>
-                                <div>
-                                    <button type="button" class="btn btn-info mt-2 more-information-btn">Show Details</button>
-                                </div>
-                                <div class="additional-info mt-3" style="display: none;">
-                                    <p class="card-text"><strong>Description:</strong> {{ event.event_description }}</p>
-                                    <p class="card-text"><strong>Location:</strong> {{ event.event_location }}</p>
-                                    <p class="card-text"><strong>Start Date:</strong> {{ event.event_date }}</p>
-                                    <p class="card-text"><strong>End Date:</strong> {{ event.event_end }}</p>
-                                    <p class="card-text"><strong>Organizer:</strong> {{ event.author.username }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endfor %}
-        </div>    
+  <div class="events-section" style="margin: 20px 20px">
+    <h2 class="text-center">Upcoming Events</h2>
+    <div class="row">
+      {% for event in events %} {% if loop.index <= 3 %}
+      <div class="col-md-4 mb-4">
+        <div class="card" style="cursor: pointer">
+          {% if event.thumbnail %}
+          <img
+            src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+            class="card-img-top"
+            alt="event_image"
+          />
+          {% else %}
+          <img
+            src="https://via.placeholder.com/350x200"
+            class="card-img-top"
+            alt="event_image"
+          />
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ event.event_name }}
+              <span class="text-muted">at {{ event.event_location }}</span>
+            </h5>
+            <div>
+              <button
+                type="button"
+                class="btn btn-info mt-2 more-information-btn"
+              >
+                Show Details
+              </button>
+            </div>
+            <div class="additional-info mt-3" style="display: none">
+              <p class="card-text">
+                <strong>Description:</strong> {{ event.event_description }}
+              </p>
+              <p class="card-text">
+                <strong>Location:</strong> {{ event.event_location }}
+              </p>
+              <p class="card-text">
+                <strong>Start Date:</strong> {{ event.event_date }}
+              </p>
+              <p class="card-text">
+                <strong>End Date:</strong> {{ event.event_end }}
+              </p>
+              <p class="card-text">
+                <strong>Organizer:</strong> {{ event.author.username }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% endfor %}
     </div>
+  </div>
 </section>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script>
-    $(document).ready(function () {
-        $('.more-information-btn').click(function () {
-            $(this).closest('.card-body').find('.additional-info').toggle();
-        });
+  $(document).ready(function () {
+    $('.more-information-btn').click(function () {
+      $(this).closest('.card-body').find('.additional-info').toggle();
     });
+  });
 </script>
 {% endblock %}

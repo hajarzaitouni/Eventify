@@ -1,113 +1,150 @@
-{% extends 'layout.html'%}
-{% block navbar %}
+{% extends 'layout.html'%} {% block navbar %}
 <a class="navbar-brand" href="{{ url_for('home') }}">
-    <div class="logo">Eventify</div>
+  <div class="logo">Eventify</div>
 </a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+<button
+  class="navbar-toggler"
+  type="button"
+  data-toggle="collapse"
+  data-target="#navbarNav"
+  aria-controls="navbarNav"
+  aria-expanded="false"
+  aria-label="Toggle navigation"
+>
+  <span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-toggle="modal" data-target="#createEventModal">
-                Create Event
-            </button>
-        </li>
-        <li class="nav-item">
-            <!--<a class="nav-link" href="{{ url_for('show_archived_events') }}">Archive</a>-->
-            <button class="btn btn-outline-primary nav-link"
-                onclick="window.location.href='{{ url_for('show_archived_events') }}'">
-                Archive
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="btn btn-primary" onclick="window.location.href='{{ url_for('logout') }}'">
-                Logout
-            </button>
-        </li>
-    </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+    </li>
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        data-toggle="modal"
+        data-target="#createEventModal"
+      >
+        Create Event
+      </button>
+    </li>
+    <li class="nav-item">
+      <!--<a class="nav-link" href="{{ url_for('show_archived_events') }}">Archive</a>-->
+      <button
+        class="btn btn-outline-primary nav-link"
+        onclick="window.location.href='{{ url_for('show_archived_events') }}'"
+      >
+        Archive
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        class="btn btn-primary"
+        onclick="window.location.href='{{ url_for('logout') }}'"
+      >
+        Logout
+      </button>
+    </li>
+  </ul>
 </div>
-{% endblock %}
-{% block welcome_content %}
+{% endblock %} {% block welcome_content %}
 <section class="welcome-content">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Hello {{ username }}!</h1>
-                <h2>See what's coming next</h2>
-            </div>
-        </div>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Hello {{ username }}!</h1>
+        <h2>See what's coming next</h2>
+      </div>
     </div>
+  </div>
 </section>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <section>
-    <div class="events-section" style="margin: 20px 20px;">
-        <h2 class="text-center">My Events</h2>
-        {% if events %}
-        <div class="row">
-            {% for event in events %}
-            <div class="col-md-4 mb-4">
-                <form action="{{ url_for('archive_event', event_id=event.event_id) }}" method="post"
-                    class="archive-form">
-                    <div class="card" style="cursor: pointer">
-                        {% if event.thumbnail %}
-                        <img src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
-                            class="card-img-top" alt="event_image" />
-                        {% else %}
-                        <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="event_image" />
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ event.event_name }}</h5>
-                            <p class="card-text">{{ event.event_description }}</p>
-                            <div class="cards-buttons">
-                                <button type="button" class="btn btn-primary update-event-button" data-event-id="{{ event.event_id }}"
-                                    data-event-name="{{ event.event_name }}" data-event-location="{{ event.event_location }}"
-                                    data-event-date="{{ event.event_date }}" data-event-end="{{ event.event_end }}"
-                                    data-event-description="{{ event.event_description }}" data-toggle="modal" data-target="#updateEventModal">
-                                    Update
-                                </button>
-                                <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-danger">Delete</a>
-                                <button type="submit" class="btn btn-warning">Archive</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+  <div class="events-section" style="margin: 20px 20px">
+    <h2 class="text-center">My Events</h2>
+    {% if events %}
+    <div class="row">
+      {% for event in events %}
+      <div class="col-md-4 mb-4">
+        <form
+          action="{{ url_for('archive_event', event_id=event.event_id) }}"
+          method="post"
+          class="archive-form"
+        >
+          <div class="card" style="cursor: pointer">
+            {% if event.thumbnail %}
+            <img
+              src="{{ url_for('static', filename='images/thumbnail_pics/' + event.thumbnail) }}"
+              class="card-img-top"
+              alt="event_image"
+            />
+            {% else %}
+            <img
+              src="https://via.placeholder.com/350x200"
+              class="card-img-top"
+              alt="event_image"
+            />
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ event.event_name }}</h5>
+              <p class="card-text">{{ event.event_description }}</p>
+              <div class="cards-buttons">
+                <button
+                  type="button"
+                  class="btn btn-primary update-event-button"
+                  data-event-id="{{ event.event_id }}"
+                  data-event-name="{{ event.event_name }}"
+                  data-event-location="{{ event.event_location }}"
+                  data-event-date="{{ event.event_date }}"
+                  data-event-end="{{ event.event_end }}"
+                  data-event-description="{{ event.event_description }}"
+                  data-toggle="modal"
+                  data-target="#updateEventModal"
+                >
+                  Update
+                </button>
+                <a
+                  href="{{ url_for('delete_event', event_id=event.event_id) }}"
+                  class="btn btn-danger"
+                  >Delete</a
+                >
+                <button type="submit" class="btn btn-warning">Archive</button>
+              </div>
             </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <div class="text-center">
-            <h3>No events created yet. Start creating your events Now!</h3>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#createEventModal">
-                Create Event
-            </button>
-        </div>
-        {% endif %}
+          </div>
+        </form>
+      </div>
+      {% endfor %}
     </div>
+    {% else %}
+    <div class="text-center">
+      <h3>No events created yet. Start creating your events Now!</h3>
+      <button
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#createEventModal"
+      >
+        Create Event
+      </button>
+    </div>
+    {% endif %}
+  </div>
 </section>
-{% include 'create_event.html' %}
-{% include 'update_event.html' %}
-{% endblock%}
-
-{% block extra_js %}
+{% include 'create_event.html' %} {% include 'update_event.html' %} {%
+endblock%} {% block extra_js %}
 <script>
-    $(document).ready(function () {
-        // Add dashboard-top-section class to top-section
-        $('.top-section').addClass('dashboard-top-section');
+  $(document).ready(function () {
+    // Add dashboard-top-section class to top-section
+    $('.top-section').addClass('dashboard-top-section');
 
-        // Scroll to events section
-        $('#showEventsButton').click(function () {
-            $('html, body').animate(
-                {
-                    scrollTop: $('.events-section').offset().top,
-                },
-                1000);
-        });
+    // Scroll to events section
+    $('#showEventsButton').click(function () {
+      $('html, body').animate(
+        {
+          scrollTop: $('.events-section').offset().top,
+        },
+        1000
+      );
     });
+  });
 </script>
 {% endblock %}

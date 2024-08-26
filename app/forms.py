@@ -39,30 +39,30 @@ class RegisterForm(FlaskForm):
 
 class EventForm(FlaskForm):
     """ Event form. """
-    event_name = StringField('Event Name', validators=[DataRequired()])
-    event_description = StringField('Event Description', validators=[DataRequired()])
+    event_name = StringField('Event Name', validators=[DataRequired()], render_kw={"autocomplete": "off"})
+    event_description = StringField('Event Description', validators=[DataRequired()], render_kw={"autocomplete": "off"})
     thumbnail = FileField("Update Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
     event_end = DateTimeLocalField('Event End', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
-    event_location = StringField('Event Location', validators=[DataRequired()])
+    event_location = StringField('Event Location', validators=[DataRequired()], render_kw={"autocomplete": "off"})
     submit = SubmitField('Create Event')
 
 class UpdateEventForm(FlaskForm):
     """ Update event form. """
-    event_name = StringField('Event Name')
-    event_description = StringField('Event Description')
+    event_name = StringField('Event Name', render_kw={"autocomplete": "off"})
+    event_description = StringField('Event Description', render_kw={"autocomplete": "off"})
     thumbnail = FileField("Update Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M')
     event_end = DateTimeLocalField('Event End', format='%Y-%m-%dT%H:%M')
-    event_location = StringField('Event Location')
+    event_location = StringField('Event Location', render_kw={"autocomplete": "off"})
     submit = SubmitField('Update Event')
 
 class archiveEventForm(FlaskForm):
     """ Archive event form. """
-    event_name = StringField('Event Name')
-    event_description = StringField('Event Description')
+    event_name = StringField('Event Name', render_kw={"autocomplete": "off"})
+    event_description = StringField('Event Description', render_kw={"autocomplete": "off"})
     thumbnail = FileField("Update Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M')
     event_end = DateTimeLocalField('Event End', format='%Y-%m-%dT%H:%M')
-    event_location = StringField('Event Location')
+    event_location = StringField('Event Location', render_kw={"autocomplete": "off"})
     submit = SubmitField('Archive Event')

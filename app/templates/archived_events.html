@@ -1,6 +1,4 @@
-{% extends 'layout.html' %}
-
-{% block navbar %}
+{% extends 'layout.html' %} {% block navbar %}
 <a class="navbar-brand" href="{{ url_for('home') }}">
   <div class="logo">Eventify</div>
 </a>
@@ -30,8 +28,7 @@
     </li>
   </ul>
 </div>
-{% endblock %}
-{% block welcome_content %}
+{% endblock %} {% block welcome_content %}
 <div class="container archived-events">
   <table class="table table-hover table-bordered table-light">
     <thead>
@@ -53,12 +50,20 @@
         <td>{{ event.event_end }}</td>
         <td>{{ event.event_location }}</td>
         <td>
-            <button type="button" class="btn btn-primary update-event-button" data-event-id="{{ event.event_id }}"
-                data-event-name="{{ event.event_name }}" data-event-location="{{ event.event_location }}"
-                data-event-date="{{ event.event_date }}" data-event-end="{{ event.event_end }}"
-                data-event-description="{{ event.event_description }}" data-toggle="modal" data-target="#updateEventModal">
-                Update
-            </button>
+          <button
+            type="button"
+            class="btn btn-primary update-event-button"
+            data-event-id="{{ event.event_id }}"
+            data-event-name="{{ event.event_name }}"
+            data-event-location="{{ event.event_location }}"
+            data-event-date="{{ event.event_date }}"
+            data-event-end="{{ event.event_end }}"
+            data-event-description="{{ event.event_description }}"
+            data-toggle="modal"
+            data-target="#updateEventModal"
+          >
+            Update
+          </button>
           <a
             href="{{ url_for('delete_event', event_id=event.event_id) }}"
             class="btn btn-danger"
@@ -78,14 +83,9 @@
   </table>
 </div>
 
-{% endblock %}
-{% block content %}
-<div class="empty">
-
-</div>
-{% endblock %}
-{% block extra_js %}
-{% include 'update_event.html'%}
+{% endblock %} {% block content %}
+<div class="empty"></div>
+{% endblock %} {% block extra_js %} {% include 'update_event.html'%}
 <script>
   $(document).ready(function () {
     // Add dashboard-top-section class to top-section

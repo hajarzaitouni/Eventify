@@ -1,41 +1,69 @@
 <!-- Register Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="registerModal"
+  tabindex="-1"
+  aria-labelledby="registerModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="registerModalLabel">Create your account</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form id="registerForm">
         {{ register_form.hidden_tag() }}
         <div class="modal-body">
-            <div class="alert alert-danger d-none" role="alert" id="registerAlertMessage"></div>
-            <div class="form-group">
-                {{ register_form.first_name(class="form-control", id="first_name", placeholder="First Name") }}
-            </div>
-            <div class="form-group">
-                {{ register_form.last_name(class="form-control", id="last_name", placeholder="Last Name") }}
-            </div>
-            <div class="form-group">
-                {{ register_form.username(class="form-control", id="username", placeholder="Username") }}
-            </div>
-            <div class="form-group">
-                {{ register_form.email(class="form-control", id="email", placeholder="Email") }}
-            </div>
-            <div class="form-group">
-                {{ register_form.password(class="form-control", id="password", placeholder="Password") }}
-            </div>
-            <div class="form-group">
-                {{ register_form.confirm_password(class="form-control", id="confirm_password", placeholder="Confirm Password") }}
-            </div>
+          <div
+            class="alert alert-danger d-none"
+            role="alert"
+            id="registerAlertMessage"
+          ></div>
+          <div class="form-group">
+            {{ register_form.first_name(class="form-control", id="first_name",
+            placeholder="First Name") }}
+          </div>
+          <div class="form-group">
+            {{ register_form.last_name(class="form-control", id="last_name",
+            placeholder="Last Name") }}
+          </div>
+          <div class="form-group">
+            {{ register_form.username(class="form-control", id="username",
+            placeholder="Username") }}
+          </div>
+          <div class="form-group">
+            {{ register_form.email(class="form-control", id="email",
+            placeholder="Email") }}
+          </div>
+          <div class="form-group">
+            {{ register_form.password(class="form-control", id="password",
+            placeholder="Password") }}
+          </div>
+          <div class="form-group">
+            {{ register_form.confirm_password(class="form-control",
+            id="confirm_password", placeholder="Confirm Password") }}
+          </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Register</button>
-            <p class="mt-3">
-                Have an account? <a href="{{ url_for('login') }} " data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Sign in</a>
-            </p>
+          <button type="submit" class="btn btn-primary">Register</button>
+          <p class="mt-3">
+            Have an account?
+            <a
+              href="{{ url_for('login') }} "
+              data-dismiss="modal"
+              data-toggle="modal"
+              data-target="#loginModal"
+              >Sign in</a
+            >
+          </p>
         </div>
       </form>
     </div>
