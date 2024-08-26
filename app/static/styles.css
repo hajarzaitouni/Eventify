@@ -1,6 +1,9 @@
 body {
+    min-height: 100vh;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .logo {
@@ -207,6 +210,30 @@ li.nav-item button.btn.btn-outline-primary:hover {
 }
 
 /* My events section */
+
+.no-events-yet button.btn.btn-primary {
+    background-color: #ee5109;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border-color: #ee5109;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.no-events-yet button.btn.btn-primary:hover {
+    background-color: #cd8887;
+    color: black;
+    border-color: #cd8887;
+}
+
+.no-events-yet h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #3f3233;
+}
+
 .events-section {
     padding-top: 5px;
     padding-bottom: 20px;
@@ -390,6 +417,7 @@ tbody td button.btn.btn-warning:hover {
 
 
 /* footer section style */
+
 .footer-section {
     background-color: #3f3232;
     color: white;
@@ -398,6 +426,7 @@ tbody td button.btn.btn-warning:hover {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     overflow: hidden;
+    margin-top: auto;
 }
 
 .footer-container {

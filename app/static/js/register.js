@@ -33,7 +33,7 @@ $(document).ready(function () {
                 setTimeout(function () {
                     $('#registerModal').modal('hide');
                     $('#loginModal').modal('show');
-                }, 2000);
+                }, 5000);
 
             } else {
                 $('#registerAlertMessage')
